@@ -1,0 +1,300 @@
+{
+ "meta": {
+  "creator": "cds-dk 9.7.1"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "OP_API_COSTCENTER_SRV_0001": {
+   "kind": "service",
+   "@cds.external": true,
+   "@m.IsDefaultEntityContainer": "true",
+   "@sap.message.scope.supported": "true",
+   "@sap.supported.formats": "atom json xlsx"
+  },
+  "OP_API_COSTCENTER_SRV_0001.A_CostCenter": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.creatable": "false",
+   "@sap.updatable": "false",
+   "@sap.deletable": "false",
+   "@sap.content.version": "1",
+   "@sap.label": "Cost Center",
+   "elements": {
+    "ControllingArea": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Controlling Area",
+     "notNull": true
+    },
+    "CostCenter": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cost Center",
+     "notNull": true
+    },
+    "ValidityEndDate": {
+     "key": true,
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Valid To",
+     "@sap.quickinfo": "Valid To Date",
+     "notNull": true
+    },
+    "ValidityStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Valid From",
+     "@sap.quickinfo": "Valid-From Date"
+    },
+    "CompanyCode": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Company Code"
+    },
+    "BusinessArea": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Business Area"
+    },
+    "CostCtrResponsiblePersonName": {
+     "type": "cds.String",
+     "length": 20,
+     "@sap.label": "Person Responsible"
+    },
+    "CostCtrResponsibleUser": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "User Responsible"
+    },
+    "CostCenterCurrency": {
+     "type": "cds.String",
+     "length": 5,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Currency",
+     "@sap.quickinfo": "Currency Key",
+     "@sap.semantics": "currency-code"
+    },
+    "ProfitCenter": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Profit Center"
+    },
+    "Department": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.label": "Department"
+    },
+    "CostingSheet": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Costing Sheet"
+    },
+    "FunctionalArea": {
+     "type": "cds.String",
+     "length": 16,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Functional Area"
+    },
+    "Country": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Country/Region Key"
+    },
+    "PostalCode": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Postal Code"
+    },
+    "StreetAddressName": {
+     "type": "cds.String",
+     "length": 35,
+     "@sap.label": "Street",
+     "@sap.quickinfo": "Street and House Number"
+    },
+    "Region": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Region",
+     "@sap.quickinfo": "Region (State, Province, County)"
+    },
+    "CityName": {
+     "type": "cds.String",
+     "length": 35,
+     "@sap.label": "City"
+    },
+    "CostCenterStandardHierArea": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Hierarchy Area",
+     "@sap.quickinfo": "Standard Hierarchy Area"
+    },
+    "CostCenterCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cost Center Category"
+    },
+    "IsBlkdForPrimaryCostsPosting": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Actual primary costs",
+     "@sap.quickinfo": "Lock Indicator for Actual Primary Postings"
+    },
+    "IsBlkdForSecondaryCostsPosting": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Actl Sec. Costs",
+     "@sap.quickinfo": "Lock Indicator for Actual Secondary Costs"
+    },
+    "IsBlockedForRevenuePosting": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Actual Revenues",
+     "@sap.quickinfo": "Lock Indicator for Actual Revenue Postings"
+    },
+    "IsBlockedForCommitmentPosting": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Commitment Update",
+     "@sap.quickinfo": "Lock Indicator for Commitment Update"
+    },
+    "IsBlockedForPlanPrimaryCosts": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Plan primary costs",
+     "@sap.quickinfo": "Lock Indicator for Plan Primary Costs"
+    },
+    "IsBlockedForPlanSecondaryCosts": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Lock Plan Sec Costs",
+     "@sap.quickinfo": "Lock Indicator for Plan Secondary Costs"
+    },
+    "IsBlockedForPlanRevenues": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Lock Planning Revn",
+     "@sap.quickinfo": "Lock Indicator for Planning Revenues"
+    },
+    "ConsumptionQtyIsRecorded": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Record Quantity",
+     "@sap.quickinfo": "Indicator for Recording Consumption Quantities"
+    },
+    "Language": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.label": "Language Key"
+    },
+    "CostCenterCreatedByUser": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Created By",
+     "@sap.quickinfo": "Entered By"
+    },
+    "CostCenterCreationDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Entered On"
+    },
+    "to_Text": {
+     "type": "cds.Association",
+     "target": "OP_API_COSTCENTER_SRV_0001.A_CostCenterText",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    }
+   }
+  },
+  "OP_API_COSTCENTER_SRV_0001.A_CostCenterText": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.creatable": "false",
+   "@sap.updatable": "false",
+   "@sap.deletable": "false",
+   "@sap.content.version": "1",
+   "@sap.label": "Cost Center Text",
+   "elements": {
+    "CostCenter": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cost Center",
+     "notNull": true
+    },
+    "ControllingArea": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Controlling Area",
+     "notNull": true
+    },
+    "Language": {
+     "key": true,
+     "type": "cds.String",
+     "length": 2,
+     "@sap.label": "Language Key",
+     "notNull": true
+    },
+    "ValidityEndDate": {
+     "key": true,
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Valid To",
+     "@sap.quickinfo": "Valid To Date",
+     "notNull": true
+    },
+    "ValidityStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Valid From",
+     "@sap.quickinfo": "Valid-From Date"
+    },
+    "CostCenterName": {
+     "type": "cds.String",
+     "length": 20,
+     "@sap.label": "Cost Center Name"
+    },
+    "CostCenterDescription": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.label": "Cost Center Desc.",
+     "@sap.quickinfo": "Description of Cost Center"
+    },
+    "to_CostCenter": {
+     "type": "cds.Association",
+     "target": "OP_API_COSTCENTER_SRV_0001.A_CostCenter",
+     "keys": []
+    }
+   }
+  }
+ }
+}

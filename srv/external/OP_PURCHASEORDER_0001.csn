@@ -1,0 +1,6324 @@
+{
+ "meta": {
+  "creator": "cds-dk 9.7.1"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "OP_PURCHASEORDER_0001.SAP__Message": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "code": {
+     "type": "cds.String",
+     "notNull": true
+    },
+    "message": {
+     "type": "cds.String",
+     "notNull": true
+    },
+    "target": {
+     "type": "cds.String"
+    },
+    "additionalTargets": {
+     "items": {
+      "type": "cds.String",
+      "notNull": true
+     }
+    },
+    "transition": {
+     "type": "cds.Boolean",
+     "notNull": true
+    },
+    "numericSeverity": {
+     "type": "cds.Integer",
+     "@odata.Type": "Edm.Byte",
+     "notNull": true
+    },
+    "longtextUrl": {
+     "type": "cds.String"
+    }
+   }
+  },
+  "OP_PURCHASEORDER_0001": {
+   "kind": "service",
+   "@cds.external": true,
+   "@CodeList.CurrencyCodes.Url": "../../../../default/iwbep/common/0001/$metadata",
+   "@CodeList.CurrencyCodes.CollectionPath": "Currencies",
+   "@CodeList.UnitsOfMeasure.Url": "../../../../default/iwbep/common/0001/$metadata",
+   "@CodeList.UnitsOfMeasure.CollectionPath": "UnitsOfMeasure",
+   "@Aggregation.ApplySupported.Transformations": [
+    "aggregate",
+    "groupby",
+    "filter"
+   ],
+   "@Aggregation.ApplySupported.Rollup": {
+    "#": "None"
+   },
+   "@Common.ApplyMultiUnitBehaviorForSortingAndFiltering": true,
+   "@Capabilities.FilterFunctions": [
+    "eq",
+    "ne",
+    "gt",
+    "ge",
+    "lt",
+    "le",
+    "and",
+    "or",
+    "contains",
+    "startswith",
+    "endswith",
+    "any",
+    "all"
+   ],
+   "@Capabilities.SupportedFormats": [
+    "application/json",
+    "application/pdf"
+   ],
+   "@PDF.Features.DocumentDescriptionReference": "../../../../default/iwbep/common/0001/$metadata",
+   "@PDF.Features.DocumentDescriptionCollection": "MyDocumentDescriptions",
+   "@PDF.Features.ArchiveFormat": true,
+   "@PDF.Features.Border": true,
+   "@PDF.Features.CoverPage": true,
+   "@PDF.Features.FitToPage": true,
+   "@PDF.Features.FontName": true,
+   "@PDF.Features.FontSize": true,
+   "@PDF.Features.Margin": true,
+   "@PDF.Features.Padding": true,
+   "@PDF.Features.Signature": true,
+   "@PDF.Features.HeaderFooter": true,
+   "@PDF.Features.ResultSizeDefault": 20000,
+   "@PDF.Features.ResultSizeMaximum": 20000,
+   "@Capabilities.KeyAsSegmentSupported": true,
+   "@Capabilities.AsynchronousRequestsSupported": true
+  },
+  "OP_PURCHASEORDER_0001.POSubcontractingComponent": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Document"
+    },
+    "PurchaseOrderItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Purchasing Document Item"
+    },
+    "ScheduleLine": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Schedule Line",
+     "@Common.Heading": "Schd.",
+     "@Common.QuickInfo": "Delivery Schedule Line Counter"
+    },
+    "ReservationItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Reservation Item"
+    },
+    "RecordType": {
+     "key": true,
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Reservation Record Type"
+    },
+    "Material": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material",
+     "@Common.QuickInfo": "Material Number"
+    },
+    "IsMaterialProvision": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Mat. Provision Ind.",
+     "@Common.Heading": "MP Ind.",
+     "@Common.QuickInfo": "Material Provision Indicator"
+    },
+    "MaterialProvisionType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material Provision Type"
+    },
+    "MaterialQtyToBaseQtyNmrtr": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "notNull": true,
+     "@Common.Label": "Numerator",
+     "@Common.Heading": "Numer.",
+     "@Common.QuickInfo": "Numerator for Conversion to Base Units of Measure"
+    },
+    "MaterialQtyToBaseQtyDnmntr": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "notNull": true,
+     "@Common.Label": "Denominator",
+     "@Common.Heading": "Denom.",
+     "@Common.QuickInfo": "Denominator for conversion to base units of measure"
+    },
+    "MaterialRevisionLevel": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Revision Level"
+    },
+    "MaterialCompIsVariableSized": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Variable-Sized Item",
+     "@Common.QuickInfo": "Variable-Sized Item Indicator"
+    },
+    "MaterialComponentIsPhantomItem": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Phantom Item",
+     "@Common.QuickInfo": "Phantom Item Indicator"
+    },
+    "Reservation": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Reservation",
+     "@Common.Heading": "Reserv.no.",
+     "@Common.QuickInfo": "Number of reservation/dependent requirements"
+    },
+    "RequiredQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Measures.Unit": {
+      "=": "BaseUnit"
+     },
+     "@Common.Label": "Requirement Quantity",
+     "@Common.Heading": "Reqmnt qty"
+    },
+    "RequirementDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Requirement Date",
+     "@Common.QuickInfo": "Material Component Requirement Date"
+    },
+    "RequirementTime": {
+     "type": "cds.Time",
+     "notNull": true,
+     "@Common.Label": "Requirement Time",
+     "@Common.QuickInfo": "Material Component Requirement Time"
+    },
+    "ReservationIsFinallyIssued": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Final Issue",
+     "@Common.Heading": "FIs",
+     "@Common.QuickInfo": "Final Issue for Reservation"
+    },
+    "BaseUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Core.Immutable": true,
+     "@Common.Label": "Base Unit of Measure",
+     "@Common.Heading": "BUn"
+    },
+    "QuantityInEntryUnit": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "EntryUnit"
+     },
+     "@Common.Label": "Quantity in Unit of Entry"
+    },
+    "EntryUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Unit of Entry",
+     "@Common.Heading": "EUn",
+     "@Common.QuickInfo": "Unit of entry"
+    },
+    "VariableSizeItemQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "VariableSizeItemUnit"
+     },
+     "@Common.Label": "Number of Variable-Size Components"
+    },
+    "VariableSizeItemUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Variable-Size Item Unit",
+     "@Common.QuickInfo": "Variable-Size Item Unit of Measure"
+    },
+    "VariableSizeComponentUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Variable-Size Component Unit",
+     "@Common.QuickInfo": "Unit of Measure for Variable-Size Components"
+    },
+    "VariableSizeComponentQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "VariableSizeComponentUnit"
+     },
+     "@Common.Label": "VSI Quantity",
+     "@Common.QuickInfo": "Variable-Size Item Quantity per PC"
+    },
+    "UnitOfMeasureForSize1To3": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Size unit",
+     "@Common.Heading": "SzUn",
+     "@Common.QuickInfo": "Unit of measure for sizes 1 to 3"
+    },
+    "Size1": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "UnitOfMeasureForSize1To3"
+     },
+     "@Common.Label": "Size 1"
+    },
+    "Size2": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "UnitOfMeasureForSize1To3"
+     },
+     "@Common.Label": "Size 2"
+    },
+    "Size3": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "UnitOfMeasureForSize1To3"
+     },
+     "@Common.Label": "Size 3"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Plant",
+     "@Common.Heading": "Plnt"
+    },
+    "LatestRequirementDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Latest Requirement Date"
+    },
+    "OrderLevelValue": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Order level",
+     "@Common.Heading": "OLvl"
+    },
+    "OrderPathValue": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Order path",
+     "@Common.Heading": "Path"
+    },
+    "BillOfMaterialItemNumber": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Bill Of Material Item Number"
+    },
+    "MatlCompFreeDefinedAttribute": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Sort String",
+     "@Common.Heading": "SortStrng"
+    },
+    "BOMItemCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "BOM Item Category",
+     "@Common.QuickInfo": "Bill of Material Item Category"
+    },
+    "IsBulkMaterialComponent": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Bulk material",
+     "@Common.Heading": "Bulk",
+     "@Common.QuickInfo": "Indicator: bulk material"
+    },
+    "AccountAssignmentCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Account Assignment Category"
+    },
+    "InventorySpecialStockType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Special Stock Type",
+     "@Common.Heading": "Sp. Stock",
+     "@Common.QuickInfo": "Inventory Special Stock Type"
+    },
+    "ConsumptionPosting": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Consumption Posting"
+    },
+    "InventorySpecialStockValnType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Special Stock Valuation Type",
+     "@Common.QuickInfo": "Inventory Special Stock Valuation Type"
+    },
+    "DebitCreditCode": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Debit Credit Code",
+     "@Common.QuickInfo": "Debit/Credit Code"
+    },
+    "WithdrawnQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Measures.Unit": {
+      "=": "BaseUnit"
+     },
+     "@Common.Label": "Withdrawn Quantity"
+    },
+    "QuantityIsFixed": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Quantity is fixed",
+     "@Common.Heading": "Fix"
+    },
+    "ComponentScrapInPercent": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 2,
+     "notNull": true,
+     "@Common.Label": "Component Scrap (%)",
+     "@Common.Heading": "C.scrap",
+     "@Common.QuickInfo": "Component Scrap in Percent"
+    },
+    "OperationScrapInPercent": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 2,
+     "notNull": true,
+     "@Common.Label": "Operation Scrap in %",
+     "@Common.Heading": "OpScrap",
+     "@Common.QuickInfo": "Operation Scrap"
+    },
+    "IsNetScrap": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Net Scrap Indicator",
+     "@Common.Heading": "Net ID"
+    },
+    "LeadTimeOffset": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "notNull": true,
+     "@Common.Label": "Lead-Time Offset"
+    },
+    "QuantityDistributionKey": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Distribution Key",
+     "@Common.Heading": "DKey",
+     "@Common.QuickInfo": "MRP Distribution Key"
+    },
+    "FormulaKey": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "VSI Formula",
+     "@Common.Heading": "Formula",
+     "@Common.QuickInfo": "Formula Key for Variable-Size Items"
+    },
+    "StorageLocation": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Storage Location"
+    },
+    "ProductionSupplyArea": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Production Supply Area"
+    },
+    "Batch": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Batch",
+     "@Common.QuickInfo": "Batch Number"
+    },
+    "BOMItemDescription": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Item Text",
+     "@Common.Heading": "Item Text Line 1",
+     "@Common.QuickInfo": "BOM Item Text (Line 1)"
+    },
+    "BOMItemText2": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Item Text 2",
+     "@Common.Heading": "Item Text Line 2",
+     "@Common.QuickInfo": "BOM Item Text (Line 2)"
+    },
+    "ChangeNumber": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Change Number",
+     "@Common.Heading": "Change No."
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEORDER_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseOrder": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrder",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    },
+    "_PurchaseOrderItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderItem",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "_ScheduleLine": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderScheduleLine",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_ScheduleLine",
+        "ScheduleLine"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "ScheduleLine"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Subcontracting Components",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "RequiredQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "QuantityInEntryUnit"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "VariableSizeItemQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "VariableSizeComponentQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "Size1"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "Size2"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "Size3"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "WithdrawnQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurchaseOrder": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Order",
+     "@Common.Heading": "Purchase Order Number",
+     "@Common.QuickInfo": "Purchase Order Number"
+    },
+    "PurchaseOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.FieldControl": {
+      "#": "Mandatory"
+     },
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Doc. Type",
+     "@Common.Heading": "Type",
+     "@Common.QuickInfo": "Purchasing Document Type"
+    },
+    "PurchaseOrderSubtype": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Control indicator",
+     "@Common.Heading": "Ctl",
+     "@Common.QuickInfo": "Control indicator for purchasing document type"
+    },
+    "PurchasingDocumentOrigin": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Status",
+     "@Common.Heading": "S",
+     "@Common.QuickInfo": "Status of Purchasing Document"
+    },
+    "PurchasingDocumentProcessCode": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "PurchasingDocumentProcessCode",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Process Indicator",
+     "@Common.QuickInfo": "Process Indicator for Purchase Order"
+    },
+    "CreatedByUser": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Created By",
+     "@Common.QuickInfo": "User of person who created a purchasing document"
+    },
+    "CreationDate": {
+     "type": "cds.Date",
+     "@Core.Computed": true,
+     "@Common.Label": "Created On",
+     "@Common.Heading": "Created",
+     "@Common.QuickInfo": "Creation Date of Purchasing Document"
+    },
+    "PurchaseOrderDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Purchase Order Date",
+     "@Common.Heading": "PO Date"
+    },
+    "LastChangeDateTime": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Core.Computed": true,
+     "@Common.Label": "Last Changed",
+     "@Common.QuickInfo": "Change Time Stamp"
+    },
+    "ValidityStartDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Validity Per. Start",
+     "@Common.Heading": "VP Start",
+     "@Common.QuickInfo": "Start of Validity Period"
+    },
+    "ValidityEndDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Validity Period End",
+     "@Common.Heading": "VPer.End",
+     "@Common.QuickInfo": "End of Validity Period"
+    },
+    "Language": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.Label": "Language Key",
+     "@Common.Heading": "Language"
+    },
+    "PurchaseOrderDeletionCode": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Deletion Code",
+     "@Common.Heading": "Purchase Order Deletion Code",
+     "@Common.QuickInfo": "Purchase Order Deletion Code"
+    },
+    "ReleaseIsNotCompleted": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Subject to Release",
+     "@Common.Heading": "R",
+     "@Common.QuickInfo": "Release Not Yet Completely Effected"
+    },
+    "PurchasingCompletenessStatus": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Incomplete",
+     "@Common.Heading": "I",
+     "@Common.QuickInfo": "Purchase order not yet complete"
+    },
+    "PurchasingProcessingStatus": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Proc. State",
+     "@Common.Heading": "Purchasing Doc. Processing State",
+     "@Common.QuickInfo": "Purchasing Document Processing State"
+    },
+    "PurgReleaseSequenceStatus": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Release State",
+     "@Common.Heading": "Release"
+    },
+    "ReleaseCode": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Release indicator",
+     "@Common.Heading": "Rel",
+     "@Common.QuickInfo": "Release Indicator: Purchasing Document"
+    },
+    "PurchasingReleaseStrategy": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Release Strategy",
+     "@Common.Heading": "Strat"
+    },
+    "PurgReasonForDocCancellation": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Reason for Canc.",
+     "@Common.Heading": "Reas. Canc.",
+     "@Common.QuickInfo": "Reason for Cancellation"
+    },
+    "CompanyCode": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Company Code",
+     "@Common.Heading": "CoCd"
+    },
+    "PurchasingOrganization": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purch. Organization",
+     "@Common.Heading": "POrg",
+     "@Common.QuickInfo": "Purchasing Organization"
+    },
+    "PurchasingGroup": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "PurchasingGroup",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Group",
+     "@Common.Heading": "PGr"
+    },
+    "Supplier": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.FieldControl": {
+      "#": "Mandatory"
+     },
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier"
+    },
+    "ManualSupplierAddressID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address Number",
+     "@Common.Heading": "Addr. No."
+    },
+    "SupplierAddressID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address Number",
+     "@Common.Heading": "Addr. No."
+    },
+    "SupplierRespSalesPersonName": {
+     "type": "cds.String",
+     "length": 30,
+     "notNull": true,
+     "@Common.Label": "Salesperson",
+     "@Common.QuickInfo": "Responsible Salesperson at Supplier's Office"
+    },
+    "SupplierPhoneNumber": {
+     "type": "cds.String",
+     "length": 16,
+     "notNull": true,
+     "@Common.Label": "Supplier Phone",
+     "@Common.QuickInfo": "Supplier's Phone Number"
+    },
+    "SupplyingSupplier": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Goods Supplier",
+     "@Common.Heading": "Goods Supp"
+    },
+    "SupplyingPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplying Plant",
+     "@Common.Heading": "SPlt",
+     "@Common.QuickInfo": "Supplying (issuing) plant in case of stock transport order"
+    },
+    "InvoicingParty": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Invoicing Party",
+     "@Common.Heading": "Inv. Pty",
+     "@Common.QuickInfo": "Different Invoicing Party"
+    },
+    "Customer": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Customer",
+     "@Common.QuickInfo": "Customer Number"
+    },
+    "PurchaseContract": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Outline agreement",
+     "@Common.Heading": "Agmt.",
+     "@Common.QuickInfo": "Number of principal purchase agreement"
+    },
+    "SupplierQuotationExternalID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Quotation",
+     "@Common.QuickInfo": "Quotation Number"
+    },
+    "QuotationSubmissionDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Quotation Date",
+     "@Common.Heading": "Quot. Date",
+     "@Common.QuickInfo": "Quotation Submission Date"
+    },
+    "ItemNumberIntervalForSubItems": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Subitem Interval",
+     "@Common.Heading": "SIInt",
+     "@Common.QuickInfo": "Item Number Interval for Subitems"
+    },
+    "PaymentTerms": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "PaymentTerms",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Payment Terms",
+     "@Common.Heading": "PayT",
+     "@Common.QuickInfo": "Terms of Payment Key"
+    },
+    "CashDiscount1Days": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "notNull": true,
+     "@Common.Label": "Days 1",
+     "@Common.Heading": "Day1",
+     "@Common.QuickInfo": "Cash Discount Days 1"
+    },
+    "CashDiscount2Days": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "notNull": true,
+     "@Common.Label": "Days 2",
+     "@Common.Heading": "Day2",
+     "@Common.QuickInfo": "Cash Discount Days 2"
+    },
+    "NetPaymentDays": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "notNull": true,
+     "@Common.Label": "Days Net",
+     "@Common.Heading": "Net",
+     "@Common.QuickInfo": "Net Payment Terms Period"
+    },
+    "CashDiscount1Percent": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 3,
+     "notNull": true,
+     "@Common.Label": "CD Percentage 1",
+     "@Common.Heading": "CD P.1",
+     "@Common.QuickInfo": "Cash Discount Percentage 1"
+    },
+    "CashDiscount2Percent": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 3,
+     "notNull": true,
+     "@Common.Label": "CD Percentage 2",
+     "@Common.Heading": "CD P.2",
+     "@Common.QuickInfo": "Cash Discount Percentage 2"
+    },
+    "DownPaymentType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "DownPaymentType",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Down Payment",
+     "@Common.QuickInfo": "Down Payment Indicator"
+    },
+    "DownPaymentPercentageOfTotAmt": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 2,
+     "notNull": true,
+     "@Common.Label": "Down Payment %",
+     "@Common.Heading": "Down Payt Percentage",
+     "@Common.QuickInfo": "Down Payment Percentage"
+    },
+    "DownPaymentAmount": {
+     "type": "cds.Decimal",
+     "precision": 11,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Down Payment Amount",
+     "@Common.QuickInfo": "Down Payment Amount in Document Currency"
+    },
+    "DownPaymentDueDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Due Date for DP",
+     "@Common.Heading": "Due Date for Down Payment",
+     "@Common.QuickInfo": "Due Date for Down Payment"
+    },
+    "IncotermsClassification": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "IncotermsClassification",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Incoterms",
+     "@Common.Heading": "IncoT",
+     "@Common.QuickInfo": "Incoterms (Part 1)"
+    },
+    "IncotermsTransferLocation": {
+     "type": "cds.String",
+     "length": 28,
+     "notNull": true,
+     "@Common.Label": "Incoterms (Part 2)",
+     "@Common.Heading": "Inco. 2"
+    },
+    "IncotermsVersion": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "IncotermsVersion",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Incoterms Version",
+     "@Common.Heading": "IncoV"
+    },
+    "IncotermsLocation1": {
+     "type": "cds.String",
+     "length": 70,
+     "notNull": true,
+     "@Common.Label": "Incoterms Location 1"
+    },
+    "IncotermsLocation2": {
+     "type": "cds.String",
+     "length": 70,
+     "notNull": true,
+     "@Common.Label": "Incoterms Location 2"
+    },
+    "IsIntrastatReportingRelevant": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Intrastat Relevance",
+     "@Common.Heading": "relevant for Intrastat",
+     "@Common.QuickInfo": "Relevant for Intrastat Reporting"
+    },
+    "IsIntrastatReportingExcluded": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Intrastat Exclusion",
+     "@Common.Heading": "exclude from Intrastat",
+     "@Common.QuickInfo": "Exclude from Intrastat Reporting"
+    },
+    "CorrespncExternalReference": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.Label": "Your Reference",
+     "@Common.Heading": "Your Ref."
+    },
+    "CorrespncInternalReference": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.Label": "Our Reference"
+    },
+    "PricingDocument": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Doc. Condition No.",
+     "@Common.Heading": "Doc.Cond.",
+     "@Common.QuickInfo": "Number of the Document Condition"
+    },
+    "PricingProcedure": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Procedure",
+     "@Common.Heading": "Proc.",
+     "@Common.QuickInfo": "Procedure (Pricing, Output Control, Acct. Det., Costing,...)"
+    },
+    "DocumentCurrency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "Currency",
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Currency",
+     "@Common.Heading": "Crcy",
+     "@Common.QuickInfo": "Currency Key"
+    },
+    "ExchangeRate": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 5,
+     "notNull": true,
+     "@Common.Label": "Exchange Rate"
+    },
+    "ExchangeRateIsFixed": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Fixed Exchange Rate",
+     "@Common.Heading": "Fix",
+     "@Common.QuickInfo": "Indicator for Fixed Exchange Rate"
+    },
+    "TaxReturnCountry": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Reporting C/R",
+     "@Common.Heading": "RC",
+     "@Common.QuickInfo": "Country/Region for Tax Report"
+    },
+    "VATRegistrationCountry": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Ctry/Rgn Sls Tax No.",
+     "@Common.Heading": "STC",
+     "@Common.QuickInfo": "Country/Region of Sales Tax ID Number"
+    },
+    "PurgAggrgdProdCmplncSuplrSts": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier Check Sts",
+     "@Common.Heading": "Supplier Ck Sts",
+     "@Common.QuickInfo": "Product Compliance Supplier Check Status (All Items)"
+    },
+    "PurgAggrgdProdMarketabilitySts": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Prod. Marktablty Sts",
+     "@Common.Heading": "ProdMarktabltyS",
+     "@Common.QuickInfo": "Product Marketability Status (All Items)"
+    },
+    "PurgAggrgdSftyDataSheetStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Sfty Data Sheet Sts",
+     "@Common.Heading": "SftyDataSheetS",
+     "@Common.QuickInfo": "Safety Data Sheet Status (All Items)"
+    },
+    "PurgProdCmplncTotDngrsGoodsSts": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Dangerous Goods Sts",
+     "@Common.Heading": "Dngrs Goods Sts",
+     "@Common.QuickInfo": "Dangerous Goods Status (All Items)"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEORDER_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseOrderItem": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderItem",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderItem",
+        "_PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurchaseOrderNote": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderNote",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderNote",
+        "_PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurchaseOrderPartner": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderPartner",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderPartner",
+        "_PurchaseOrderTP"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_SupplierAddress": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderSupplierAddress",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_SupplierAddress",
+        "_PurchaseOrderTP"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    }
+   },
+   "@Common.Label": "Purchase Order",
+   "@Common.SemanticKey": [
+    "PurchaseOrder"
+   ],
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "_PurchaseOrderItem"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_PurchaseOrderNote"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_SupplierAddress"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "DownPaymentAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurchaseOrderAccountAssignment": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Document",
+     "@Common.Heading": "Pur. Doc.",
+     "@Common.QuickInfo": "Purchasing Document Number"
+    },
+    "PurchaseOrderItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item",
+     "@Common.QuickInfo": "Item Number of Purchasing Document"
+    },
+    "AccountAssignmentNumber": {
+     "key": true,
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Account Assgmt No.",
+     "@Common.Heading": "SAA",
+     "@Common.QuickInfo": "Sequential Number of Account Assignment"
+    },
+    "CostCenter": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Cost Center",
+     "@Common.Heading": "Cost Ctr"
+    },
+    "MasterFixedAsset": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Asset",
+     "@Common.QuickInfo": "Main Asset Number"
+    },
+    "ProjectNetwork": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Network",
+     "@Common.QuickInfo": "Network Number for Account Assignment"
+    },
+    "NetworkActivity": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Oper./Act.",
+     "@Common.Heading": "Operation/Activity Number",
+     "@Common.QuickInfo": "Operation/Activity Number"
+    },
+    "OrderQuantityUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Order Unit",
+     "@Common.Heading": "OUn",
+     "@Common.QuickInfo": "Purchase Order Unit of Measure"
+    },
+    "Quantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "OrderQuantityUnit"
+     },
+     "@Common.Label": "Quantity"
+    },
+    "MultipleAcctAssgmtDistrPercent": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 1,
+     "notNull": true,
+     "@Common.Label": "Distribution (%)",
+     "@Common.Heading": "Percent",
+     "@Common.QuickInfo": "Distribution percentage in the case of multiple acct assgt"
+    },
+    "DocumentCurrency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Currency",
+     "@Common.Heading": "Crcy",
+     "@Common.QuickInfo": "Currency Key"
+    },
+    "PurgDocNetAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Net Order Value",
+     "@Common.Heading": "Net Value",
+     "@Common.QuickInfo": "Net Order Value in PO Currency"
+    },
+    "IsDeleted": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Deletion Indicator",
+     "@Common.Heading": "D",
+     "@Common.QuickInfo": "Deletion Indicator: Purchasing Document Account Assignment"
+    },
+    "GLAccount": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "G/L Account",
+     "@Common.Heading": "G/L Acct",
+     "@Common.QuickInfo": "G/L Account Number"
+    },
+    "BusinessArea": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Business Area",
+     "@Common.Heading": "BusA"
+    },
+    "SalesOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "SD Document",
+     "@Common.Heading": "Document",
+     "@Common.QuickInfo": "Sales and Distribution Document Number"
+    },
+    "SalesOrderItem": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item",
+     "@Common.QuickInfo": "Sales Document Item"
+    },
+    "SalesOrderScheduleLine": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Schedule Line Number",
+     "@Common.Heading": "SLNo"
+    },
+    "FixedAsset": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Asset Subnumber",
+     "@Common.Heading": "SNo."
+    },
+    "OrderID": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Order",
+     "@Common.QuickInfo": "Order Number"
+    },
+    "UnloadingPointName": {
+     "type": "cds.String",
+     "length": 25,
+     "notNull": true,
+     "@Common.Label": "Unloading Point"
+    },
+    "ControllingArea": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Controlling Area",
+     "@Common.Heading": "COAr"
+    },
+    "CostObject": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Cost Object",
+     "@Common.Heading": "CostObject"
+    },
+    "ProfitCenter": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Profit Center",
+     "@Common.Heading": "Profit Ctr"
+    },
+    "WBSElementInternalID": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "WBS Internal ID",
+     "@Common.Heading": "WBS Elem",
+     "@Common.QuickInfo": "WBS Element"
+    },
+    "WBSElementExternalID": {
+     "type": "cds.String",
+     "length": 24,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "WBS Element",
+     "@Common.QuickInfo": "Work Breakdown Structure Element (WBS Element) Edited"
+    },
+    "ProjectNetworkInternalID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Opertn Task List No.",
+     "@Common.Heading": "Routing Number for Operations",
+     "@Common.QuickInfo": "Routing Number of Operations in the Order"
+    },
+    "CommitmentItemShortID": {
+     "type": "cds.String",
+     "length": 14,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Commitment Item Short ID"
+    },
+    "FundsCenter": {
+     "type": "cds.String",
+     "length": 16,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Funds Center",
+     "@Common.Heading": "Funds Ctr"
+    },
+    "Fund": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Fund"
+    },
+    "FunctionalArea": {
+     "type": "cds.String",
+     "length": 16,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Functional Area"
+    },
+    "GoodsRecipientName": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.Label": "Goods Recipient",
+     "@Common.Heading": "Recipient"
+    },
+    "IsFinallyInvoiced": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Final Invoice",
+     "@Common.Heading": "FIn",
+     "@Common.QuickInfo": "Final Invoice Indicator"
+    },
+    "NetworkActivityInternalID": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Counter",
+     "@Common.QuickInfo": "Internal counter"
+    },
+    "PartnerAccountNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Partner",
+     "@Common.QuickInfo": "Partner account number"
+    },
+    "JointVentureRecoveryCode": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Recovery Indicator",
+     "@Common.Heading": "RI"
+    },
+    "SettlementReferenceDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Reference date",
+     "@Common.Heading": "Ref date",
+     "@Common.QuickInfo": "Reference date for settlement"
+    },
+    "OrderInternalID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Opertn Task List No.",
+     "@Common.Heading": "Routing Number for Operations",
+     "@Common.QuickInfo": "Routing Number of Operations in the Order"
+    },
+    "OrderIntBillOfOperationsItem": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Counter",
+     "@Common.QuickInfo": "General counter for order"
+    },
+    "TaxCode": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tax Code",
+     "@Common.Heading": "Tx",
+     "@Common.QuickInfo": "Tax on sales/purchases code"
+    },
+    "TaxJurisdiction": {
+     "type": "cds.String",
+     "length": 15,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tax Jurisdiction",
+     "@Common.Heading": "Tax Jur."
+    },
+    "NonDeductibleInputTaxAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Non-deductible",
+     "@Common.QuickInfo": "Non-deductible input tax"
+    },
+    "CostCtrActivityType": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Activity Type",
+     "@Common.Heading": "ActTyp"
+    },
+    "BusinessProcess": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Business Process",
+     "@Common.Heading": "Bus. Process"
+    },
+    "GrantID": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Grant"
+    },
+    "BudgetPeriod": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Budget Period"
+    },
+    "EarmarkedFundsDocument": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Earmarked Funds",
+     "@Common.Heading": "Earm. Fnds",
+     "@Common.QuickInfo": "Document Number for Earmarked Funds"
+    },
+    "EarmarkedFundsDocumentItem": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Document Item",
+     "@Common.Heading": "Itm",
+     "@Common.QuickInfo": "Earmarked Funds: Document Item"
+    },
+    "ValidityDate": {
+     "type": "cds.Date"
+    },
+    "ChartOfAccounts": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Chart of Accounts"
+    },
+    "ServiceDocumentType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Service Doc. Type",
+     "@Common.Heading": "Service Document Type",
+     "@Common.QuickInfo": "Service Document Type"
+    },
+    "ServiceDocument": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Service Document",
+     "@Common.QuickInfo": "Service Document ID"
+    },
+    "ServiceDocumentItem": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Service Doc. Item",
+     "@Common.Heading": "Service Document Item",
+     "@Common.QuickInfo": "Service Document Item ID"
+    },
+    "CreationDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Created On",
+     "@Common.QuickInfo": "Record Creation Date"
+    },
+    "IsAcctLineFinal": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Final AA",
+     "@Common.Heading": "Final AA Indicator",
+     "@Common.QuickInfo": "Final Account Assignment Indicator"
+    },
+    "AcctLineFinalReason": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Final AA Reason",
+     "@Common.QuickInfo": "Final Account Assignment Reason Code"
+    },
+    "CompanyCode": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Company Code",
+     "@Common.Heading": "CoCd"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEORDER_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseOrder": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrder",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    },
+    "_PurchaseOrderItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderItem",
+        "PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrderItem"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Account Assignment",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "Quantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "PurgDocNetAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "NonDeductibleInputTaxAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurchaseOrderInvoicingPlan": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Order",
+     "@Common.Heading": "Purchase Order Number",
+     "@Common.QuickInfo": "Purchase Order Number"
+    },
+    "PurchaseOrderItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Purchase Order Item",
+     "@Common.Heading": "Item Number of Purchase Order",
+     "@Common.QuickInfo": "Item Number of Purchase Order"
+    },
+    "InvoicingPlan": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Bill. Plan No.",
+     "@Common.Heading": "Bill. Plan",
+     "@Common.QuickInfo": "Billing/Invoicing Plan Number"
+    },
+    "InvoicingPlanType": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Billing Plan Type",
+     "@Common.Heading": "BT",
+     "@Common.QuickInfo": "Billing/Invoicing Plan Type"
+    },
+    "InvoicingPlanStartDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Start Date",
+     "@Common.QuickInfo": "Start Date of Billing/Invoicing Plan"
+    },
+    "InvoicingPlanEndDate": {
+     "type": "cds.Date",
+     "@Common.Label": "End Date",
+     "@Common.QuickInfo": "End Date of Billing/Invoicing Plan"
+    },
+    "InvoicingPlanNextInvcDateRule": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Next Billing Date",
+     "@Common.Heading": "ND",
+     "@Common.QuickInfo": "Rule for Origin of Next Billing/Invoice Date"
+    },
+    "PurchasingOrganization": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purch. Organization",
+     "@Common.Heading": "POrg",
+     "@Common.QuickInfo": "Purchasing Organization"
+    },
+    "PurchasingGroup": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Group",
+     "@Common.Heading": "PGr"
+    },
+    "PurchaseOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Doc. Type",
+     "@Common.Heading": "Type",
+     "@Common.QuickInfo": "Purchasing Document Type"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Plant",
+     "@Common.Heading": "Plnt"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEORDER_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_POInvoicingPlanItem": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderInvoicingPlanItem",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_POInvoicingPlanItem",
+        "_PurchaseOrderInvoicingPlan"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurchaseOrder": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrder",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    },
+    "_PurchaseOrderItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderItem",
+        "PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrderItem"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Invoicing Plan",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "_POInvoicingPlanItem"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurchaseOrderInvoicingPlanItem": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Order",
+     "@Common.Heading": "Purchase Order Number",
+     "@Common.QuickInfo": "Purchase Order Number"
+    },
+    "PurchaseOrderItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Purchase Order Item",
+     "@Common.Heading": "Item Number of Purchase Order",
+     "@Common.QuickInfo": "Item Number of Purchase Order"
+    },
+    "InvoicingPlanItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item",
+     "@Common.QuickInfo": "Item for billing plan/invoice plan/payment cards"
+    },
+    "InvoicingPlan": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Bill. Plan No.",
+     "@Common.Heading": "Bill. Plan",
+     "@Common.QuickInfo": "Billing/Invoicing Plan Number"
+    },
+    "InvoicingPlanSettlementFromDte": {
+     "type": "cds.Date",
+     "@Common.Label": "Settlement Start Date",
+     "@Common.QuickInfo": "Settlement Start Date of Billing/Invoicing Date"
+    },
+    "InvoicingPlanSettlementToDte": {
+     "type": "cds.Date",
+     "@Common.Label": "Settlement End Date",
+     "@Common.QuickInfo": "Settlement End Date of Billing/Invoicing Date"
+    },
+    "InvoicingPlanInvoicingDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Billing Date"
+    },
+    "InvoicingPlanAmount": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "TransactionCurrency"
+     },
+     "@Common.Label": "Billing Value",
+     "@Common.QuickInfo": "Value to be billed/calc. on date in billing/invoice plan"
+    },
+    "TransactionCurrency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Currency",
+     "@Common.Heading": "Crcy",
+     "@Common.QuickInfo": "Currency Key"
+    },
+    "PurchasingOrganization": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purch. Organization",
+     "@Common.Heading": "POrg",
+     "@Common.QuickInfo": "Purchasing Organization"
+    },
+    "PurchasingGroup": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Group",
+     "@Common.Heading": "PGr"
+    },
+    "PurchaseOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Doc. Type",
+     "@Common.Heading": "Type",
+     "@Common.QuickInfo": "Purchasing Document Type"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Plant",
+     "@Common.Heading": "Plnt"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEORDER_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseOrder": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrder",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    },
+    "_PurchaseOrderInvoicingPlan": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderInvoicingPlan",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderInvoicingPlan",
+        "InvoicingPlan"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "InvoicingPlan"
+       ]
+      }
+     ]
+    },
+    "_PurchaseOrderItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderItem",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   },
+   "@Common.Label": "Invoicing Plan Item",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "InvoicingPlanAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurchaseOrderItem": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Order",
+     "@Common.Heading": "Purchase Order Number",
+     "@Common.QuickInfo": "Purchase Order Number"
+    },
+    "PurchaseOrderItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Purchase Order Item",
+     "@Common.Heading": "Item Number of Purchase Order",
+     "@Common.QuickInfo": "Item Number of Purchase Order"
+    },
+    "PurchaseOrderCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purch. Doc. Category",
+     "@Common.Heading": "Cat",
+     "@Common.QuickInfo": "Purchasing Document Category"
+    },
+    "DocumentCurrency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Currency",
+     "@Common.Heading": "Crcy",
+     "@Common.QuickInfo": "Currency Key"
+    },
+    "PurchasingDocumentDeletionCode": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Deletion Indicator",
+     "@Common.Heading": "D",
+     "@Common.QuickInfo": "Deletion Indicator in Purchasing Document"
+    },
+    "MaterialGroup": {
+     "type": "cds.String",
+     "length": 9,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material Group",
+     "@Common.Heading": "Matl Group"
+    },
+    "Material": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material",
+     "@Common.QuickInfo": "Material Number"
+    },
+    "MaterialType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material Type",
+     "@Common.Heading": "MTyp"
+    },
+    "SupplierMaterialNumber": {
+     "type": "cds.String",
+     "length": 35,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier Mat. No.",
+     "@Common.Heading": "Supplier Material Number",
+     "@Common.QuickInfo": "Material Number Used by Supplier"
+    },
+    "SupplierSubrange": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier Subrange",
+     "@Common.Heading": "SSR"
+    },
+    "ManufacturerPartNmbr": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Mfr Part Number",
+     "@Common.Heading": "MPN",
+     "@Common.QuickInfo": "Manufacturer Part Number"
+    },
+    "Manufacturer": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Manufacturer",
+     "@Common.Heading": "Manufact.",
+     "@Common.QuickInfo": "Number of a Manufacturer"
+    },
+    "ManufacturerMaterial": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material",
+     "@Common.QuickInfo": "Material number"
+    },
+    "PurchaseOrderItemText": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Short Text"
+    },
+    "ProductTypeCode": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Product Type Group",
+     "@Common.Heading": "Product Type Grp"
+    },
+    "CompanyCode": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Company Code",
+     "@Common.Heading": "CoCd"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.FieldControl": {
+      "#": "Mandatory"
+     },
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Plant",
+     "@Common.Heading": "Plnt"
+    },
+    "ManualDeliveryAddressID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address",
+     "@Common.QuickInfo": "Manual address number in purchasing document item"
+    },
+    "ReferenceDeliveryAddressID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address",
+     "@Common.QuickInfo": "Number of delivery address"
+    },
+    "Customer": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Customer"
+    },
+    "Subcontractor": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier",
+     "@Common.QuickInfo": "Supplier to be Supplied/Who is to Receive Delivery"
+    },
+    "SupplierIsSubcontractor": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "SC Supplier",
+     "@Common.Heading": "S",
+     "@Common.QuickInfo": "Subcontracting Supplier"
+    },
+    "CrossPlantConfigurableProduct": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Cross-plant CM",
+     "@Common.QuickInfo": "Cross-Plant Configurable Material"
+    },
+    "ArticleCategory": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material Category",
+     "@Common.Heading": "Ct"
+    },
+    "PlndOrderReplnmtElmntType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Kanban Indicator"
+    },
+    "ProductPurchasePointsQtyUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Points Unit",
+     "@Common.Heading": "PUn"
+    },
+    "ProductPurchasePointsQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "ProductPurchasePointsQtyUnit"
+     },
+     "@Common.Label": "Points",
+     "@Common.QuickInfo": "Number of Points"
+    },
+    "StorageLocation": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Storage Location"
+    },
+    "PurchaseOrderQuantityUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Order Unit",
+     "@Common.Heading": "OUn",
+     "@Common.QuickInfo": "Purchase Order Unit of Measure"
+    },
+    "OrderItemQtyToBaseQtyNmrtr": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "notNull": true,
+     "@Common.Label": "Equal To",
+     "@Common.Heading": "Eq. To",
+     "@Common.QuickInfo": "Numerator for Conversion of Order Unit to Base Unit"
+    },
+    "OrderItemQtyToBaseQtyDnmntr": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "notNull": true,
+     "@Common.Label": "Denominator",
+     "@Common.Heading": "Denom.",
+     "@Common.QuickInfo": "Denominator for Conversion of Order Unit to Base Unit"
+    },
+    "NetPriceQuantity": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "OrderPriceUnit"
+     },
+     "@Common.Label": "Price Unit",
+     "@Common.Heading": "Per"
+    },
+    "IsCompletelyDelivered": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Delivery Completed",
+     "@Common.Heading": "DCI",
+     "@Common.QuickInfo": "\"Delivery Completed\" Indicator"
+    },
+    "IsFinallyInvoiced": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Final Invoice",
+     "@Common.Heading": "FIn",
+     "@Common.QuickInfo": "Final Invoice Indicator"
+    },
+    "GoodsReceiptIsExpected": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Goods Receipt",
+     "@Common.Heading": "GR",
+     "@Common.QuickInfo": "Goods Receipt Indicator"
+    },
+    "InvoiceIsExpected": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Invoice Receipt",
+     "@Common.Heading": "IR",
+     "@Common.QuickInfo": "Invoice Receipt Indicator"
+    },
+    "IsOrderAcknRqd": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Acknowledgment Reqd.",
+     "@Common.Heading": "ARq",
+     "@Common.QuickInfo": "Order Acknowledgment Requirement"
+    },
+    "InvoiceIsGoodsReceiptBased": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "GR-Based Inv. Verif.",
+     "@Common.Heading": "GR-IV",
+     "@Common.QuickInfo": "Indicator: GR-Based Invoice Verification"
+    },
+    "PurchaseContract": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Outline agreement",
+     "@Common.Heading": "Agmt.",
+     "@Common.QuickInfo": "Number of principal purchase agreement"
+    },
+    "PurchaseContractItem": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Agreement Item",
+     "@Common.Heading": "Item",
+     "@Common.QuickInfo": "Item Number of Principal Purchase Agreement"
+    },
+    "PurchaseRequisition": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Requisition",
+     "@Common.Heading": "Purch.Req.",
+     "@Common.QuickInfo": "Purchase Requisition Number"
+    },
+    "PurchaseRequisitionItem": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item of requisition",
+     "@Common.Heading": "Item",
+     "@Common.QuickInfo": "Item Number of Purchase Requisition"
+    },
+    "RequirementTracking": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Req. Tracking Number",
+     "@Common.Heading": "TrackingNo",
+     "@Common.QuickInfo": "Requirement Tracking Number"
+    },
+    "SupplierQuotation": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "RFQ",
+     "@Common.QuickInfo": "RFQ Number"
+    },
+    "SupplierQuotationItem": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item",
+     "@Common.QuickInfo": "Item Number of RFQ"
+    },
+    "EvaldRcptSettlmtIsAllowed": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Eval. Receipt Sett.",
+     "@Common.Heading": "E",
+     "@Common.QuickInfo": "Evaluated Receipt Settlement (ERS)"
+    },
+    "UnlimitedOverdeliveryIsAllowed": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Unltd Overdelivery",
+     "@Common.Heading": "Unlimited",
+     "@Common.QuickInfo": "Unlimited Overdelivery Allowed"
+    },
+    "OverdelivTolrtdLmtRatioInPct": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 1,
+     "notNull": true,
+     "@Common.Label": "Overdeliv. Tolerance",
+     "@Common.Heading": "Overdel. Tol.",
+     "@Common.QuickInfo": "Overdelivery Tolerance"
+    },
+    "UnderdelivTolrtdLmtRatioInPct": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 1,
+     "notNull": true,
+     "@Common.Label": "Underdel. Tolerance",
+     "@Common.Heading": "Underdel.Tol.",
+     "@Common.QuickInfo": "Underdelivery Tolerance"
+    },
+    "RequisitionerName": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.Label": "Requisitioner",
+     "@Common.Heading": "Requisnr.",
+     "@Common.QuickInfo": "Name of requisitioner/requester"
+    },
+    "PlannedDeliveryDurationInDays": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "notNull": true,
+     "@Common.Label": "Planned Deliv. Time",
+     "@Common.Heading": "PTm",
+     "@Common.QuickInfo": "Planned Delivery Time in Days"
+    },
+    "GoodsReceiptDurationInDays": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "notNull": true,
+     "@Common.Label": "GR processing time",
+     "@Common.Heading": "GRT",
+     "@Common.QuickInfo": "Goods receipt processing time in days"
+    },
+    "PartialDeliveryIsAllowed": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Partial Deliv./Item",
+     "@Common.Heading": "PD",
+     "@Common.QuickInfo": "Partial Delivery at Item Level (Stock Transfer)"
+    },
+    "ConsumptionPosting": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Consumption",
+     "@Common.Heading": "Cns",
+     "@Common.QuickInfo": "Consumption posting"
+    },
+    "ServicePerformer": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Service Performer",
+     "@Common.Heading": "SrvPrfm"
+    },
+    "ServicePackage": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Package number",
+     "@Common.Heading": "Number"
+    },
+    "BaseUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Base Unit of Measure",
+     "@Common.Heading": "BUn"
+    },
+    "PurchaseOrderItemCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Item Category",
+     "@Common.Heading": "I",
+     "@Common.QuickInfo": "Item category in purchasing document"
+    },
+    "ProfitCenter": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Profit Center",
+     "@Common.Heading": "Profit Ctr"
+    },
+    "OrderPriceUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Order Price Unit",
+     "@Common.Heading": "OPU",
+     "@Common.QuickInfo": "Order Price Unit (Purchasing)"
+    },
+    "ItemVolumeUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Volume Unit",
+     "@Common.Heading": "VUn"
+    },
+    "ItemWeightUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Unit of Weight",
+     "@Common.Heading": "Un"
+    },
+    "MultipleAcctAssgmtDistribution": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Distrib. Indicator",
+     "@Common.Heading": "D",
+     "@Common.QuickInfo": "Distribution Indicator for Multiple Account Assignment"
+    },
+    "PartialInvoiceDistribution": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Partial invoice",
+     "@Common.Heading": "PIn",
+     "@Common.QuickInfo": "Partial invoice indicator"
+    },
+    "PricingDateControl": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Pricing Date Control",
+     "@Common.Heading": "C",
+     "@Common.QuickInfo": "Price Determination (Pricing) Date Control"
+    },
+    "IsStatisticalItem": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Statistical",
+     "@Common.Heading": "S",
+     "@Common.QuickInfo": "Item is statistical"
+    },
+    "PurchasingParentItem": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Higher-Level Item",
+     "@Common.Heading": "HLIt",
+     "@Common.QuickInfo": "Higher-Level Item in Purchasing Documents"
+    },
+    "GoodsReceiptLatestCreationDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Latest GR Date",
+     "@Common.Heading": "GR Date",
+     "@Common.QuickInfo": "Latest Possible Goods Receipt"
+    },
+    "IsReturnsItem": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Returns Item",
+     "@Common.Heading": "R"
+    },
+    "PurchasingOrderReason": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Reason for Ordering",
+     "@Common.Heading": "OrRea"
+    },
+    "IncotermsClassification": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Incoterms",
+     "@Common.Heading": "IncoT",
+     "@Common.QuickInfo": "Incoterms (Part 1)"
+    },
+    "IncotermsTransferLocation": {
+     "type": "cds.String",
+     "length": 28,
+     "notNull": true,
+     "@Common.Label": "Incoterms (Part 2)",
+     "@Common.Heading": "Inco. 2"
+    },
+    "IncotermsLocation1": {
+     "type": "cds.String",
+     "length": 70,
+     "notNull": true,
+     "@Common.Label": "Incoterms Location 1"
+    },
+    "IncotermsLocation2": {
+     "type": "cds.String",
+     "length": 70,
+     "notNull": true,
+     "@Common.Label": "Incoterms Location 2"
+    },
+    "PriorSupplier": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Prior Supplier",
+     "@Common.Heading": "Prior Spp."
+    },
+    "InternationalArticleNumber": {
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "EAN/UPC",
+     "@Common.QuickInfo": "International Article Number (EAN/UPC)"
+    },
+    "IntrastatServiceCode": {
+     "type": "cds.String",
+     "length": 30,
+     "notNull": true,
+     "@Common.Label": "Intrastat Srvc. Code",
+     "@Common.Heading": "Intrastat Service Code",
+     "@Common.QuickInfo": "Intrastat Service Code"
+    },
+    "CommodityCode": {
+     "type": "cds.String",
+     "length": 30,
+     "notNull": true,
+     "@Common.Label": "Commodity Code"
+    },
+    "MaterialFreightGroup": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material Freight Grp",
+     "@Common.Heading": "MatFrtGp",
+     "@Common.QuickInfo": "Material Freight Group"
+    },
+    "DiscountInKindEligibility": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Qual.f.FreeGoodsDis.",
+     "@Common.Heading": "DiK",
+     "@Common.QuickInfo": "Material qualifies for discount in kind"
+    },
+    "PurgItemIsBlockedForDelivery": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Shipping block",
+     "@Common.QuickInfo": "Item blocked for SD delivery"
+    },
+    "SupplierConfirmationControlKey": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Confirmation Control",
+     "@Common.Heading": "Ctr.",
+     "@Common.QuickInfo": "Confirmation Control Key"
+    },
+    "PurgDocOrderAcknNumber": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.Label": "Order Acknowledgment",
+     "@Common.Heading": "Acknowledgment",
+     "@Common.QuickInfo": "Order Acknowledgment Number"
+    },
+    "PriceIsToBePrinted": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Print Price",
+     "@Common.Heading": "P",
+     "@Common.QuickInfo": "Price Printout"
+    },
+    "AccountAssignmentCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Acct Assignment Cat.",
+     "@Common.Heading": "A",
+     "@Common.QuickInfo": "Account Assignment Category"
+    },
+    "PurchasingInfoRecord": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Info Rec.",
+     "@Common.Heading": "Info Rec.",
+     "@Common.QuickInfo": "Purchasing Info Record Number"
+    },
+    "NetAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Net Order Value",
+     "@Common.Heading": "Net Value",
+     "@Common.QuickInfo": "Net Order Value in PO Currency"
+    },
+    "GrossAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Gross order value",
+     "@Common.Heading": "Gross value",
+     "@Common.QuickInfo": "Gross order value in PO currency"
+    },
+    "EffectiveAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Effective value",
+     "@Common.QuickInfo": "Effective value of item"
+    },
+    "Subtotal1Amount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Subtotal 1",
+     "@Common.QuickInfo": "Subtotal 1 from Pricing Procedure for Price Element"
+    },
+    "Subtotal2Amount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Subtotal 2",
+     "@Common.QuickInfo": "Subtotal 2 from Pricing Procedure for Price Element"
+    },
+    "Subtotal3Amount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Subtotal 3",
+     "@Common.QuickInfo": "Subtotal 3 from Pricing Procedure for Price Element"
+    },
+    "Subtotal4Amount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Subtotal 4",
+     "@Common.QuickInfo": "Subtotal 4 from Pricing Procedure for Price Element"
+    },
+    "Subtotal5Amount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Subtotal 5",
+     "@Common.QuickInfo": "Subtotal 5 from Pricing Procedure for Price Element"
+    },
+    "Subtotal6Amount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Subtotal 6",
+     "@Common.QuickInfo": "Subtotal 6 from Pricing Procedure for Price Element"
+    },
+    "OrderQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "PurchaseOrderQuantityUnit"
+     },
+     "@Common.Label": "Order Quantity",
+     "@Common.Heading": "PO Quantity",
+     "@Common.QuickInfo": "Purchase Order Quantity"
+    },
+    "NetPriceAmount": {
+     "type": "cds.Decimal",
+     "precision": 11,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Net Order Price",
+     "@Common.Heading": "Net Price",
+     "@Common.QuickInfo": "Net Price in Purchasing Document (in Document Currency)"
+    },
+    "ItemVolume": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "ItemVolumeUnit"
+     },
+     "@Common.Label": "Volume"
+    },
+    "ItemGrossWeight": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "ItemWeightUnit"
+     },
+     "@Common.Label": "Gross Weight"
+    },
+    "ItemNetWeight": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "ItemWeightUnit"
+     },
+     "@Common.Label": "Net Weight"
+    },
+    "OrderPriceUnitToOrderUnitNmrtr": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "notNull": true,
+     "@Common.Label": "Quantity Conversion",
+     "@Common.Heading": "Conv.",
+     "@Common.QuickInfo": "Numerator for Conversion of Order Price Unit into Order Unit"
+    },
+    "OrdPriceUnitToOrderUnitDnmntr": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "notNull": true,
+     "@Common.Label": "Quantity Conversion",
+     "@Common.Heading": "Conv.",
+     "@Common.QuickInfo": "Denominator for Conv. of Order Price Unit into Order Unit"
+    },
+    "GoodsReceiptIsNonValuated": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "GR Non-Valuated",
+     "@Common.Heading": "N",
+     "@Common.QuickInfo": "Goods Receipt, Non-Valuated"
+    },
+    "TaxCode": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tax Code",
+     "@Common.Heading": "Tx",
+     "@Common.QuickInfo": "Tax on sales/purchases code"
+    },
+    "TaxJurisdiction": {
+     "type": "cds.String",
+     "length": 15,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tax Jurisdiction",
+     "@Common.Heading": "Tax Jur."
+    },
+    "TaxCountry": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tax Ctry/Reg.",
+     "@Common.Heading": "Tax Country/Region",
+     "@Common.QuickInfo": "Tax Reporting Country/Region"
+    },
+    "TaxDeterminationDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Tax Date",
+     "@Common.QuickInfo": "Date for Determining Tax Rates"
+    },
+    "ShippingInstruction": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Shipping Instr.",
+     "@Common.Heading": "SI",
+     "@Common.QuickInfo": "Shipping Instructions"
+    },
+    "NonDeductibleInputTaxAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Non-deductible",
+     "@Common.QuickInfo": "Non-deductible input tax"
+    },
+    "StockType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Stock Type",
+     "@Common.Heading": "T"
+    },
+    "ValuationType": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Valuation Type",
+     "@Common.Heading": "Val. Type"
+    },
+    "ValuationCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Valuation Category",
+     "@Common.Heading": "ValCat"
+    },
+    "ItemIsRejectedBySupplier": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Rejection Indicator",
+     "@Common.Heading": "R"
+    },
+    "PurgDocPriceDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Price Date",
+     "@Common.QuickInfo": "Date of Price Determination"
+    },
+    "PurchasingInfoRecordUpdateCode": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Info Record Update",
+     "@Common.Heading": "I",
+     "@Common.QuickInfo": "Indicator: Update Info Record"
+    },
+    "InventorySpecialStockType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Special Stock",
+     "@Common.Heading": "S",
+     "@Common.QuickInfo": "Special Stock Indicator"
+    },
+    "DeliveryDocumentType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Del. Type f. Returns",
+     "@Common.Heading": "Del. Type Returns",
+     "@Common.QuickInfo": "Delivery Type for Returns to Supplier"
+    },
+    "IssuingStorageLocation": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Issuing Storage Loc.",
+     "@Common.Heading": "IStLoc",
+     "@Common.QuickInfo": "Issuing Storage Location for Stock Transport Order"
+    },
+    "AllocationTable": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Allocation Table",
+     "@Common.Heading": "Alloc.Tab."
+    },
+    "AllocationTableItem": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item",
+     "@Common.Heading": "Itm",
+     "@Common.QuickInfo": "Allocation Table Item"
+    },
+    "RetailPromotion": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Retail Promotion",
+     "@Common.Heading": "Promotion"
+    },
+    "PurgConfigurableItemNumber": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Hierarchy Number"
+    },
+    "PurgDocAggrgdSubitemCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Sub-items",
+     "@Common.Heading": "S",
+     "@Common.QuickInfo": "Subitems Exist"
+    },
+    "PurgExternalSortNumber": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "External Sort No.",
+     "@Common.Heading": "External Sort Number",
+     "@Common.QuickInfo": "External Sort Number"
+    },
+    "Batch": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Batch",
+     "@Common.QuickInfo": "Batch Number"
+    },
+    "PurchasingItemIsFreeOfCharge": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Free of Charge",
+     "@Common.Heading": "Free",
+     "@Common.QuickInfo": "Free Item"
+    },
+    "DownPaymentType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Down Payment",
+     "@Common.QuickInfo": "Down Payment Indicator"
+    },
+    "DownPaymentPercentageOfTotAmt": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 2,
+     "notNull": true,
+     "@Common.Label": "Down Payment %",
+     "@Common.Heading": "Down Payt Percentage",
+     "@Common.QuickInfo": "Down Payment Percentage"
+    },
+    "DownPaymentAmount": {
+     "type": "cds.Decimal",
+     "precision": 11,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Down Payment Amount",
+     "@Common.QuickInfo": "Down Payment Amount in Document Currency"
+    },
+    "DownPaymentDueDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Due Date for DP",
+     "@Common.Heading": "Due Date for Down Payment",
+     "@Common.QuickInfo": "Due Date for Down Payment"
+    },
+    "ExpectedOverallLimitAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Expected Value",
+     "@Common.QuickInfo": "Expected Value of Overall Limit"
+    },
+    "OverallLimitAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "DocumentCurrency"
+     },
+     "@Common.Label": "Overall Limit"
+    },
+    "PurContractForOverallLimit": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Contract For Limit",
+     "@Common.QuickInfo": "Purchase Contract for Enhanced Limit"
+    },
+    "PurContractItemForOverallLimit": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "PurCon Itm for Limit",
+     "@Common.Heading": "Purchase Contract Reference Item for Enhanced Limit Itm",
+     "@Common.QuickInfo": "Purchase Contract Reference Item for Enhanced Limit Item"
+    },
+    "PurgProdCmplncSupplierStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier Check Sts",
+     "@Common.Heading": "Supplier Ck Sts",
+     "@Common.QuickInfo": "Product Compliance Supplier Check Status (Item)"
+    },
+    "PurgProductMarketabilityStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Prod. Marktablty Sts",
+     "@Common.Heading": "ProdMarktabltyS",
+     "@Common.QuickInfo": "Product Marketability Status (Item)"
+    },
+    "PurgSafetyDataSheetStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Sfty Data Sheet Sts",
+     "@Common.Heading": "SftyDataSheetS",
+     "@Common.QuickInfo": "Safety Data Sheet Status (Item)"
+    },
+    "PurgProdCmplncDngrsGoodsStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Dangerous Goods Sts",
+     "@Common.Heading": "Dngrs Goods Sts",
+     "@Common.QuickInfo": "Dangerous Goods Status (Item)"
+    },
+    "BR_MaterialOrigin": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material Origin",
+     "@Common.Heading": "O",
+     "@Common.QuickInfo": "Origin of the material"
+    },
+    "BR_MaterialUsage": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material Usage",
+     "@Common.QuickInfo": "Usage of the material"
+    },
+    "BR_CFOPCategory": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Mat. CFOP category",
+     "@Common.Heading": "MC",
+     "@Common.QuickInfo": "Material CFOP category"
+    },
+    "BR_NCM": {
+     "type": "cds.String",
+     "length": 16,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "NCM Code",
+     "@Common.QuickInfo": "Brazilian NCM Code"
+    },
+    "ConsumptionTaxCtrlCode": {
+     "type": "cds.String",
+     "length": 16,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "HSN/SAC Code",
+     "@Common.QuickInfo": "HSN or SAC Code"
+    },
+    "BR_IsProducedInHouse": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Produced in-house",
+     "@Common.Heading": "P"
+    },
+    "ProductSeasonYear": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Season Year"
+    },
+    "ProductSeason": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Season"
+    },
+    "ProductCollection": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Collection",
+     "@Common.QuickInfo": "Fashion Collection"
+    },
+    "ProductTheme": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Theme",
+     "@Common.QuickInfo": "Fashion Theme"
+    },
+    "SeasonCompletenessStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Season Comp.Ind",
+     "@Common.Heading": "Season Completeness Indicator",
+     "@Common.QuickInfo": "Season Completeness Indicator"
+    },
+    "ShippingGroupRule": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PSST Grouping Rule"
+    },
+    "ShippingGroupNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PSST Group"
+    },
+    "ProductCharacteristic1": {
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.Label": "Characteristic 1",
+     "@Common.Heading": "Characteristic Value 1",
+     "@Common.QuickInfo": "Characteristic Value 1"
+    },
+    "ProductCharacteristic2": {
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.Label": "Characteristic 2",
+     "@Common.Heading": "Characteristic Value 2",
+     "@Common.QuickInfo": "Characteristic Value 2"
+    },
+    "ProductCharacteristic3": {
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.Label": "Characteristic 3",
+     "@Common.Heading": "Characteristic Value 3",
+     "@Common.QuickInfo": "Characteristic Value 3"
+    },
+    "PurgDocSubitemCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Subitem Category",
+     "@Common.Heading": "S",
+     "@Common.QuickInfo": "Subitem Category, Purchasing Document"
+    },
+    "DiversionStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Diversion Status",
+     "@Common.Heading": "Status of Diversion process",
+     "@Common.QuickInfo": "Status of Diversion process"
+    },
+    "ReferenceDocumentNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Reference Document",
+     "@Common.Heading": "Reference Document for PO Traceability",
+     "@Common.QuickInfo": "Reference Document number for PO Traceability"
+    },
+    "ReferenceDocumentItem": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Reference Item",
+     "@Common.Heading": "Reference Item for PO",
+     "@Common.QuickInfo": "Reference Item number for PO Traceability"
+    },
+    "PurchaseOrderReferenceType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Reference Action",
+     "@Common.Heading": "Reference Split Action in PO",
+     "@Common.QuickInfo": "Action for Traceability in  PO"
+    },
+    "ItemHasValueAddedService": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "VAS Relevant"
+    },
+    "ValAddedSrvcParentItmNumber": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item",
+     "@Common.QuickInfo": "Item Number of Purchasing Document"
+    },
+    "StockSegment": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Stock Segment"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEORDER_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_DeliveryAddress": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurOrderItemDeliveryAddress",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_DeliveryAddress",
+        "_PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurchaseOrder": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrder",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    },
+    "_PurchaseOrderInvoicingPlan": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderInvoicingPlan",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderInvoicingPlan",
+        "_PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurchaseOrderItemNote": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderItemNote",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderItemNote",
+        "_PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurchaseOrderScheduleLineTP": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderScheduleLine",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderScheduleLineTP",
+        "_PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurOrdAccountAssignment": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderAccountAssignment",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurOrdAccountAssignment",
+        "_PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurOrdPricingElement": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.PurOrderItemPricingElement",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurOrdPricingElement",
+        "_PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    }
+   },
+   "@Common.Label": "Purchase Order Item",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "_DeliveryAddress"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_PurchaseOrderInvoicingPlan"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_PurchaseOrderItemNote"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_PurchaseOrderScheduleLineTP"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_PurOrdAccountAssignment"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_PurOrdPricingElement"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "ProductPurchasePointsQty"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "NetPriceQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "NetAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "GrossAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "EffectiveAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "Subtotal1Amount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "Subtotal2Amount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "Subtotal3Amount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "Subtotal4Amount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "Subtotal5Amount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "Subtotal6Amount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "OrderQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "NetPriceAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "ItemVolume"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "ItemGrossWeight"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "ItemNetWeight"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "NonDeductibleInputTaxAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "DownPaymentAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "ExpectedOverallLimitAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "OverallLimitAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurchaseOrderItemNote": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Order",
+     "@Common.Heading": "Purchase Order Number",
+     "@Common.QuickInfo": "Purchase Order Number"
+    },
+    "PurchaseOrderItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Purchase Order Item",
+     "@Common.Heading": "Item Number of Purchase Order",
+     "@Common.QuickInfo": "Item Number of Purchase Order"
+    },
+    "TextObjectType": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Text ID",
+     "@Common.Heading": "ID"
+    },
+    "Language": {
+     "key": true,
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.Label": "Language Key",
+     "@Common.Heading": "Language"
+    },
+    "PlainLongText": {
+     "type": "cds.String",
+     "notNull": true,
+     "@Common.Label": "Long Text"
+    },
+    "PurchaseOrderItemUniqueID": {
+     "type": "cds.String",
+     "length": 15,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Document Item",
+     "@Common.Heading": "Item",
+     "@Common.QuickInfo": "Concatenation of EBELN and EBELP"
+    },
+    "_PurchaseOrder": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrder",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    },
+    "_PurchaseOrderItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderItem",
+        "PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrderItem"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Item Notes",
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.FilterRestrictions.Filterable": true,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "PlainLongText"
+     },
+     "AllowedExpressions": "SearchExpression"
+    }
+   ],
+   "@Capabilities.SortRestrictions.NonSortableProperties": [
+    "PlainLongText"
+   ],
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.UpdateRestrictions.Updatable": false,
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurchaseOrderNote": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Order",
+     "@Common.Heading": "Purchase Order Number",
+     "@Common.QuickInfo": "Purchase Order Number"
+    },
+    "TextObjectType": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Text ID",
+     "@Common.Heading": "ID"
+    },
+    "Language": {
+     "key": true,
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.Label": "Language Key",
+     "@Common.Heading": "Language"
+    },
+    "PlainLongText": {
+     "type": "cds.String",
+     "notNull": true,
+     "@Common.Label": "Long Text"
+    },
+    "_PurchaseOrder": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrder",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Header Notes",
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.FilterRestrictions.Filterable": true,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "PlainLongText"
+     },
+     "AllowedExpressions": "SearchExpression"
+    }
+   ],
+   "@Capabilities.SortRestrictions.NonSortableProperties": [
+    "PlainLongText"
+   ],
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.UpdateRestrictions.Updatable": false,
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurchaseOrderPartner": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Document",
+     "@Common.Heading": "Pur. Doc.",
+     "@Common.QuickInfo": "Purchasing Document Number"
+    },
+    "PartnerFunction": {
+     "key": true,
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Partner Function",
+     "@Common.Heading": "PartF"
+    },
+    "SupplierSubrange": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier Subrange",
+     "@Common.Heading": "SSR"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Plant",
+     "@Common.Heading": "Plnt"
+    },
+    "PurchasingOrganization": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purch. Organization",
+     "@Common.Heading": "POrg",
+     "@Common.QuickInfo": "Purchasing Organization"
+    },
+    "PartnerCounter": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Partner counter",
+     "@Common.Heading": "ParC"
+    },
+    "CreatedByUser": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Created By",
+     "@Common.QuickInfo": "Name of Person Responsible for Creating the Object"
+    },
+    "CreationDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Created On",
+     "@Common.QuickInfo": "Record Creation Date"
+    },
+    "PurchasingDocumentPartnerType": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Partner Type",
+     "@Common.Heading": "NoTy.",
+     "@Common.QuickInfo": "Type of partner number"
+    },
+    "Supplier": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier",
+     "@Common.QuickInfo": "Account Number of Supplier"
+    },
+    "SupplierHierarchyCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Hierarchy Cat.",
+     "@Common.Heading": "Hierarchy Category Supplier",
+     "@Common.QuickInfo": "Hierarchy Category: Supplier Hierarchy"
+    },
+    "SupplierContact": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Contact Person",
+     "@Common.Heading": "Partner",
+     "@Common.QuickInfo": "Number of Contact Person"
+    },
+    "PersonWorkAgreement": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Personnel Number",
+     "@Common.Heading": "Pers.No."
+    },
+    "EmploymentInternalID": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Personnel Number",
+     "@Common.Heading": "Pers.No."
+    },
+    "DefaultPartner": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Default Partner",
+     "@Common.Heading": "D"
+    },
+    "_PurchaseOrderTP": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderTP",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Partner",
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.UpdateRestrictions.Updatable": false,
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurchaseOrderScheduleLine": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Document",
+     "@Common.Heading": "Pur. Doc.",
+     "@Common.QuickInfo": "Purchasing Document Number"
+    },
+    "PurchaseOrderItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item",
+     "@Common.QuickInfo": "Item Number of Purchasing Document"
+    },
+    "ScheduleLine": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Schedule Line",
+     "@Common.Heading": "Schd.",
+     "@Common.QuickInfo": "Delivery Schedule Line Counter"
+    },
+    "ScheduleLineDeliveryDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Delivery Date",
+     "@Common.Heading": "Deliv. Date",
+     "@Common.QuickInfo": "Item Delivery Date"
+    },
+    "SchedLineStscDeliveryDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Stat.-Rel. Del. Date",
+     "@Common.Heading": "StatDelD",
+     "@Common.QuickInfo": "Statistics-Relevant Delivery Date"
+    },
+    "PerformancePeriodStartDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Start Date",
+     "@Common.QuickInfo": "Start Date for Period of Performance"
+    },
+    "PerformancePeriodEndDate": {
+     "type": "cds.Date",
+     "@Common.Label": "End Date",
+     "@Common.QuickInfo": "End Date for Period of Performance"
+    },
+    "ScheduleLineDeliveryTime": {
+     "type": "cds.Time",
+     "notNull": true,
+     "@Common.Label": "Time",
+     "@Common.QuickInfo": "Delivery Date Time-Spot"
+    },
+    "Batch": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Batch",
+     "@Common.QuickInfo": "Batch Number"
+    },
+    "BatchBySupplier": {
+     "type": "cds.String",
+     "length": 15,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier Batch",
+     "@Common.QuickInfo": "Supplier Batch Number"
+    },
+    "ScheduleLineOrderQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "PurchaseOrderQuantityUnit"
+     },
+     "@Common.Label": "Scheduled Quantity",
+     "@Common.Heading": "Scheduled Qty"
+    },
+    "OpenPurchaseOrderQuantity": {
+     "type": "cds.Decimal",
+     "precision": 14,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "PurchaseOrderQuantityUnit"
+     }
+    },
+    "PurchaseOrderQuantityUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Order Unit",
+     "@Common.Heading": "OUn",
+     "@Common.QuickInfo": "Purchase Order Unit of Measure"
+    },
+    "Currency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Currency",
+     "@Common.Heading": "Crcy",
+     "@Common.QuickInfo": "Currency Key"
+    },
+    "PurchaseRequisition": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Requisition",
+     "@Common.Heading": "Purch.Req.",
+     "@Common.QuickInfo": "Purchase Requisition Number"
+    },
+    "PurchaseRequisitionItem": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item of requisition",
+     "@Common.Heading": "Item",
+     "@Common.QuickInfo": "Item Number of Purchase Requisition"
+    },
+    "DelivDateCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Deliv. date category",
+     "@Common.Heading": "C",
+     "@Common.QuickInfo": "Category of delivery date"
+    },
+    "ScheduleLineOrderDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Purchase Order Date",
+     "@Common.Heading": "Order date",
+     "@Common.QuickInfo": "Order date of schedule line"
+    },
+    "ProductAvailabilityDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Material Avail. Date",
+     "@Common.Heading": "Mat.Av.Dt.",
+     "@Common.QuickInfo": "Material Staging/Availability Date"
+    },
+    "LoadingDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Loading Date",
+     "@Common.Heading": "Loadg Date"
+    },
+    "LoadingTime": {
+     "type": "cds.Time",
+     "notNull": true,
+     "@Common.Label": "Loading Time",
+     "@Common.Heading": "Loadg Time",
+     "@Common.QuickInfo": "Loading Time (Local Time Relating to a Shipping Point)"
+    },
+    "TransportationPlanningDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Transptn Plang Date",
+     "@Common.Heading": "TrpPlanDt",
+     "@Common.QuickInfo": "Transportation Planning Date"
+    },
+    "TransportationPlanningTime": {
+     "type": "cds.Time",
+     "notNull": true,
+     "@Common.Label": "Transp. Plan. Time",
+     "@Common.Heading": "TP Time",
+     "@Common.QuickInfo": "Transp. Planning Time (Local, Relating to a Shipping Point)"
+    },
+    "GoodsIssueDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Goods Issue Date",
+     "@Common.Heading": "GI Date"
+    },
+    "GoodsIssueTime": {
+     "type": "cds.Time",
+     "notNull": true,
+     "@Common.Label": "Goods Issue Time",
+     "@Common.Heading": "GI Time",
+     "@Common.QuickInfo": "Time of Goods Issue (Local, Relating to a Plant)"
+    },
+    "RouteSchedule": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Route Schedule",
+     "@Common.Heading": "RSch"
+    },
+    "ProductAvailabilityTime": {
+     "type": "cds.Time",
+     "notNull": true,
+     "@Common.Label": "Matl Staging Time",
+     "@Common.Heading": "Stag. Time",
+     "@Common.QuickInfo": "Material Staging Time (Local, Relating to a Plant)"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEORDER_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseOrder": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrder",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    },
+    "_PurchaseOrderItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderItem",
+        "PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrderItem"
+       ]
+      }
+     ]
+    },
+    "_SubcontractingComponent": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEORDER_0001.POSubcontractingComponent",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_SubcontractingComponent",
+        "_ScheduleLine"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    }
+   },
+   "@Common.Label": "Schedule Lines",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "_SubcontractingComponent"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "ScheduleLineOrderQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "OpenPurchaseOrderQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurchaseOrderSupplierAddress": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "SupplierAddressID": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address Number",
+     "@Common.Heading": "Addr. No."
+    },
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Order",
+     "@Common.Heading": "Purchase Order Number",
+     "@Common.QuickInfo": "Purchase Order Number"
+    },
+    "AddressID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address Number",
+     "@Common.Heading": "Addr. No."
+    },
+    "AddressPersonID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Person Number",
+     "@Common.Heading": "Person"
+    },
+    "AddressRepresentationCode": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address Version",
+     "@Common.Heading": "Version",
+     "@Common.QuickInfo": "Version ID for International Addresses"
+    },
+    "CorrespondenceLanguage": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.Label": "Language Key",
+     "@Common.Heading": "Language"
+    },
+    "PrfrdCommMediumType": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Comm. Method",
+     "@Common.QuickInfo": "Communication Method (Key) (Business Address Services)"
+    },
+    "AddresseeFullName": {
+     "type": "cds.String",
+     "length": 80,
+     "notNull": true,
+     "@Common.Label": "Full Name",
+     "@Common.QuickInfo": "Full Name of Person"
+    },
+    "OrganizationName1": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name",
+     "@Common.QuickInfo": "Name 1"
+    },
+    "OrganizationName2": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name 2"
+    },
+    "OrganizationName3": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name 3"
+    },
+    "OrganizationName4": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name 4"
+    },
+    "AddressSearchTerm1": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Search Term 1"
+    },
+    "AddressSearchTerm2": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Search Term 2"
+    },
+    "CityName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "City"
+    },
+    "DistrictName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "District"
+    },
+    "VillageName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Different City",
+     "@Common.Heading": "City (Diff. from Postal City)",
+     "@Common.QuickInfo": "City (different from postal city)"
+    },
+    "PostalCode": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Postal Code",
+     "@Common.Heading": "Postl Code",
+     "@Common.QuickInfo": "City postal code"
+    },
+    "CompanyPostalCode": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Company Postal Code",
+     "@Common.Heading": "Postl Code",
+     "@Common.QuickInfo": "Company Postal Code (for Large Customers)"
+    },
+    "StreetName": {
+     "type": "cds.String",
+     "length": 60,
+     "notNull": true,
+     "@Common.Label": "Street"
+    },
+    "StreetPrefixName1": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 2"
+    },
+    "StreetPrefixName2": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 3"
+    },
+    "StreetSuffixName1": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 4"
+    },
+    "StreetSuffixName2": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 5"
+    },
+    "HouseNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "House Number",
+     "@Common.Heading": "House No."
+    },
+    "HouseNumberSupplementText": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Supplement",
+     "@Common.QuickInfo": "House number supplement"
+    },
+    "Building": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.Label": "Building Code",
+     "@Common.Heading": "Building",
+     "@Common.QuickInfo": "Building (Number or Code)"
+    },
+    "Floor": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Floor",
+     "@Common.QuickInfo": "Floor in building"
+    },
+    "RoomNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Room Number",
+     "@Common.Heading": "Room No.",
+     "@Common.QuickInfo": "Room or Apartment Number"
+    },
+    "Country": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Country/Region Key",
+     "@Common.Heading": "C/R"
+    },
+    "Region": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Region",
+     "@Common.Heading": "Rg",
+     "@Common.QuickInfo": "Region (State, Province, County)"
+    },
+    "FormOfAddress": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Title Key",
+     "@Common.Heading": "Key",
+     "@Common.QuickInfo": "Form-of-Address Key"
+    },
+    "TaxJurisdiction": {
+     "type": "cds.String",
+     "length": 15,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tax Jurisdiction"
+    },
+    "TransportZone": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Transportation Zone",
+     "@Common.Heading": "TranspZone",
+     "@Common.QuickInfo": "Transportation zone to or from which the goods are delivered"
+    },
+    "POBox": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box"
+    },
+    "POBoxIsWithoutNumber": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "PO Box w/o No.",
+     "@Common.Heading": "PO",
+     "@Common.QuickInfo": "Flag: PO Box Without Number"
+    },
+    "POBoxPostalCode": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box Postal Code",
+     "@Common.Heading": "Postl Code"
+    },
+    "POBoxLobbyName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "PO Box Lobby"
+    },
+    "POBoxDeviatingCityName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "PO Box City",
+     "@Common.QuickInfo": "PO Box city"
+    },
+    "POBoxDeviatingRegion": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box Region",
+     "@Common.Heading": "PO Region",
+     "@Common.QuickInfo": "Region for PO Box (Country/Region, State, Province, ...)"
+    },
+    "POBoxDeviatingCountry": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box Ctry/Region",
+     "@Common.Heading": "PO C/R",
+     "@Common.QuickInfo": "PO Box of Country/Region"
+    },
+    "CareOfName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "c/o",
+     "@Common.Heading": "c/o name",
+     "@Common.QuickInfo": "c/o name"
+    },
+    "DeliveryServiceTypeCode": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Delvry Serv Type",
+     "@Common.QuickInfo": "Type of Delivery Service"
+    },
+    "DeliveryServiceNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Delivery Service No.",
+     "@Common.Heading": "Delivery Service Number",
+     "@Common.QuickInfo": "Number of Delivery Service"
+    },
+    "AddressTimeZone": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Time Zone",
+     "@Common.Heading": "Zone",
+     "@Common.QuickInfo": "Address Time Zone"
+    },
+    "EmailAddress": {
+     "type": "cds.String",
+     "length": 241,
+     "notNull": true,
+     "@Common.Label": "E-Mail Address"
+    },
+    "RegionalStructureCheckStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Test stat./City file",
+     "@Common.Heading": "Status",
+     "@Common.QuickInfo": "City file test status"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEORDER_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseOrderTP": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderTP",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Supplier Address",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "EmailAddress"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurOrderItemDeliveryAddress": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Document",
+     "@Common.Heading": "Pur. Doc.",
+     "@Common.QuickInfo": "Purchasing Document Number"
+    },
+    "PurchaseOrderItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Purchase Order Item",
+     "@Common.Heading": "Item Number of Purchase Order",
+     "@Common.QuickInfo": "Item Number of Purchase Order"
+    },
+    "DeliveryAddressID": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address",
+     "@Common.QuickInfo": "Manual address number in purchasing document item"
+    },
+    "AddressID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address Number",
+     "@Common.Heading": "Addr. No."
+    },
+    "AddressPersonID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Person Number",
+     "@Common.Heading": "Person"
+    },
+    "AddressRepresentationCode": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address Version",
+     "@Common.Heading": "Version",
+     "@Common.QuickInfo": "Version ID for International Addresses"
+    },
+    "CorrespondenceLanguage": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.Label": "Language Key",
+     "@Common.Heading": "Language"
+    },
+    "PrfrdCommMediumType": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Comm. Method",
+     "@Common.QuickInfo": "Communication Method (Key) (Business Address Services)"
+    },
+    "AddresseeFullName": {
+     "type": "cds.String",
+     "length": 80,
+     "notNull": true,
+     "@Common.Label": "Full Name",
+     "@Common.QuickInfo": "Full Name of Person"
+    },
+    "OrganizationName1": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name",
+     "@Common.QuickInfo": "Name 1"
+    },
+    "OrganizationName2": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name 2"
+    },
+    "OrganizationName3": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name 3"
+    },
+    "OrganizationName4": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name 4"
+    },
+    "AddressSearchTerm1": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Search Term 1"
+    },
+    "AddressSearchTerm2": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Search Term 2"
+    },
+    "CityName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "City"
+    },
+    "DistrictName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "District"
+    },
+    "VillageName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Different City",
+     "@Common.Heading": "City (Diff. from Postal City)",
+     "@Common.QuickInfo": "City (different from postal city)"
+    },
+    "PostalCode": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Postal Code",
+     "@Common.Heading": "Postl Code",
+     "@Common.QuickInfo": "City postal code"
+    },
+    "CompanyPostalCode": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Company Postal Code",
+     "@Common.Heading": "Postl Code",
+     "@Common.QuickInfo": "Company Postal Code (for Large Customers)"
+    },
+    "StreetName": {
+     "type": "cds.String",
+     "length": 60,
+     "notNull": true,
+     "@Common.Label": "Street"
+    },
+    "StreetPrefixName1": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 2"
+    },
+    "StreetPrefixName2": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 3"
+    },
+    "StreetSuffixName1": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 4"
+    },
+    "StreetSuffixName2": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 5"
+    },
+    "HouseNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "House Number",
+     "@Common.Heading": "House No."
+    },
+    "HouseNumberSupplementText": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Supplement",
+     "@Common.QuickInfo": "House number supplement"
+    },
+    "Building": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.Label": "Building Code",
+     "@Common.Heading": "Building",
+     "@Common.QuickInfo": "Building (Number or Code)"
+    },
+    "Floor": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Floor",
+     "@Common.QuickInfo": "Floor in building"
+    },
+    "RoomNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Room Number",
+     "@Common.Heading": "Room No.",
+     "@Common.QuickInfo": "Room or Apartment Number"
+    },
+    "Country": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Country/Region Key",
+     "@Common.Heading": "C/R"
+    },
+    "Region": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Region",
+     "@Common.Heading": "Rg",
+     "@Common.QuickInfo": "Region (State, Province, County)"
+    },
+    "FormOfAddress": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Title Key",
+     "@Common.Heading": "Key",
+     "@Common.QuickInfo": "Form-of-Address Key"
+    },
+    "TaxJurisdiction": {
+     "type": "cds.String",
+     "length": 15,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tax Jurisdiction"
+    },
+    "TransportZone": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Transportation Zone",
+     "@Common.Heading": "TranspZone",
+     "@Common.QuickInfo": "Transportation zone to or from which the goods are delivered"
+    },
+    "POBox": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box"
+    },
+    "POBoxIsWithoutNumber": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "PO Box w/o No.",
+     "@Common.Heading": "PO",
+     "@Common.QuickInfo": "Flag: PO Box Without Number"
+    },
+    "POBoxPostalCode": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box Postal Code",
+     "@Common.Heading": "Postl Code"
+    },
+    "POBoxLobbyName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "PO Box Lobby"
+    },
+    "POBoxDeviatingCityName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "PO Box City",
+     "@Common.QuickInfo": "PO Box city"
+    },
+    "POBoxDeviatingRegion": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box Region",
+     "@Common.Heading": "PO Region",
+     "@Common.QuickInfo": "Region for PO Box (Country/Region, State, Province, ...)"
+    },
+    "POBoxDeviatingCountry": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box Ctry/Region",
+     "@Common.Heading": "PO C/R",
+     "@Common.QuickInfo": "PO Box of Country/Region"
+    },
+    "CareOfName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "c/o",
+     "@Common.Heading": "c/o name",
+     "@Common.QuickInfo": "c/o name"
+    },
+    "DeliveryServiceTypeCode": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Delvry Serv Type",
+     "@Common.QuickInfo": "Type of Delivery Service"
+    },
+    "DeliveryServiceNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Delivery Service No.",
+     "@Common.Heading": "Delivery Service Number",
+     "@Common.QuickInfo": "Number of Delivery Service"
+    },
+    "AddressTimeZone": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Time Zone",
+     "@Common.Heading": "Zone",
+     "@Common.QuickInfo": "Address Time Zone"
+    },
+    "EmailAddress": {
+     "type": "cds.String",
+     "length": 241,
+     "notNull": true,
+     "@Common.Label": "E-Mail Address"
+    },
+    "RegionalStructureCheckStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Test stat./City file",
+     "@Common.Heading": "Status",
+     "@Common.QuickInfo": "City file test status"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEORDER_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseOrder": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrder",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    },
+    "_PurchaseOrderItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderItem",
+        "PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrderItem"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Item Delivery Address",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "EmailAddress"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEORDER_0001.PurOrderItemPricingElement": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Document",
+     "@Common.Heading": "Pur. Doc.",
+     "@Common.QuickInfo": "Purchasing Document Number"
+    },
+    "PurchaseOrderItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item",
+     "@Common.QuickInfo": "Item Number of Purchasing Document"
+    },
+    "PricingDocument": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Doc. Condition No.",
+     "@Common.Heading": "Doc.Cond.",
+     "@Common.QuickInfo": "Number of the Document Condition"
+    },
+    "PricingDocumentItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item",
+     "@Common.Heading": "ItemNo",
+     "@Common.QuickInfo": "Condition item number"
+    },
+    "PricingProcedureStep": {
+     "key": true,
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Step Number",
+     "@Common.Heading": "Step"
+    },
+    "PricingProcedureCounter": {
+     "key": true,
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Counter",
+     "@Common.Heading": "Cntr",
+     "@Common.QuickInfo": "Condition Counter"
+    },
+    "ConditionApplication": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Application",
+     "@Common.Heading": "App"
+    },
+    "ConditionType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Condition Type",
+     "@Common.Heading": "CnTy"
+    },
+    "PriceConditionDeterminationDte": {
+     "type": "cds.Date",
+     "@Core.Computed": true,
+     "@Common.Label": "Cndn Pricing Date",
+     "@Common.Heading": "CndnPrcgDt",
+     "@Common.QuickInfo": "Condition Pricing Date"
+    },
+    "ConditionCalculationType": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Calculation Type",
+     "@Common.Heading": "CalTy",
+     "@Common.QuickInfo": "Calculation Type for Condition"
+    },
+    "ConditionBaseAmount": {
+     "type": "cds.Decimal",
+     "precision": 24,
+     "scale": 9,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "TransactionCurrency"
+     },
+     "@Common.Label": "Cndn Bs Amt",
+     "@Common.Heading": "Condition Basis Amount",
+     "@Common.QuickInfo": "Amount of the Condition Basis"
+    },
+    "ConditionBaseValue": {
+     "type": "cds.Decimal",
+     "precision": 24,
+     "scale": 9,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Condition Basis"
+    },
+    "ConditionRateAmount": {
+     "type": "cds.Decimal",
+     "precision": 24,
+     "scale": 9,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "ConditionCurrency"
+     },
+     "@Common.Label": "Condition Amount"
+    },
+    "ConditionRateRatio": {
+     "type": "cds.Decimal",
+     "precision": 24,
+     "scale": 9,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "ConditionRateRatioUnit"
+     },
+     "@Common.Label": "Ratio",
+     "@Common.QuickInfo": "Condition Ratio (in Percent or Per Mille)"
+    },
+    "ConditionRateRatioUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Internal UoM",
+     "@Common.Heading": "MU",
+     "@Common.QuickInfo": "Unit of Measurement"
+    },
+    "ConditionCurrency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Currency",
+     "@Common.Heading": "Crcy",
+     "@Common.QuickInfo": "Currency Key"
+    },
+    "PriceDetnExchangeRate": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 5,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Exchange Rate",
+     "@Common.Heading": "Exch.Rate",
+     "@Common.QuickInfo": "Exchange Rate for Price Determination"
+    },
+    "ConditionQuantity": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "ConditionQuantityUnit"
+     },
+     "@Common.Label": "Pricing Unit",
+     "@Common.Heading": "per",
+     "@Common.QuickInfo": "Condition Pricing Unit"
+    },
+    "ConditionQuantityUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Condition Unit",
+     "@Common.Heading": "UoM",
+     "@Common.QuickInfo": "Condition Unit in the Document"
+    },
+    "ConditionToBaseQtyNmrtr": {
+     "type": "cds.Decimal",
+     "precision": 10,
+     "notNull": true,
+     "@Common.Label": "Numerator",
+     "@Common.QuickInfo": "Numerator for Converting to Base UoM"
+    },
+    "ConditionToBaseQtyDnmntr": {
+     "type": "cds.Decimal",
+     "precision": 10,
+     "notNull": true,
+     "@Common.Label": "Denominator",
+     "@Common.QuickInfo": "Denominator for Converting to Base UoM"
+    },
+    "ConditionCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Condition Category",
+     "@Common.Heading": "CdCat",
+     "@Common.QuickInfo": "Condition Category (Examples: Tax, Freight, Price, Cost)"
+    },
+    "ConditionIsForStatistics": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Statistical",
+     "@Common.Heading": "Stat",
+     "@Common.QuickInfo": "Condition is used for statistics"
+    },
+    "PricingScaleType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Scale Type",
+     "@Common.Heading": "S"
+    },
+    "IsRelevantForAccrual": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Accruals",
+     "@Common.Heading": "Accr.",
+     "@Common.QuickInfo": "Condition is Relevant for Accrual  (e.g. Freight)"
+    },
+    "CndnIsRelevantForInvoiceList": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Invoice List Cond.",
+     "@Common.Heading": "InLiC",
+     "@Common.QuickInfo": "Condition for Invoice List"
+    },
+    "ConditionOrigin": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Condition Origin",
+     "@Common.Heading": "Orig",
+     "@Common.QuickInfo": "Origin of the Condition"
+    },
+    "IsGroupCondition": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Group Condition",
+     "@Common.Heading": "GrC"
+    },
+    "AccessNumberOfAccessSequence": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Access",
+     "@Common.Heading": "AcNo",
+     "@Common.QuickInfo": "Access sequence - Access number"
+    },
+    "ConditionRecord": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Condition Record No.",
+     "@Common.Heading": "CondRecNo.",
+     "@Common.QuickInfo": "Number of Condition Record"
+    },
+    "ConditionSequentialNumber": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Sequent.No. of Cond.",
+     "@Common.Heading": "No",
+     "@Common.QuickInfo": "Sequential Number of the Condition"
+    },
+    "AccountKeyForGLAccount": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Account Key",
+     "@Common.Heading": "ActKy"
+    },
+    "GLAccount": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "G/L Account",
+     "@Common.Heading": "G/L Acct",
+     "@Common.QuickInfo": "G/L Account Number"
+    },
+    "TaxCode": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tax Code",
+     "@Common.Heading": "Tx",
+     "@Common.QuickInfo": "Tax on sales/purchases code"
+    },
+    "AcctKeyForAccrualsGLAccount": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "AcctKey Accruals",
+     "@Common.Heading": "Accrls",
+     "@Common.QuickInfo": "Account Key - Accruals / Provisions"
+    },
+    "AccrualsGLAccount": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Accruals Account",
+     "@Common.Heading": "Accrs.Acc.",
+     "@Common.QuickInfo": "Number of Accruals Account"
+    },
+    "WithholdingTaxCode": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "W/Tax Code",
+     "@Common.Heading": "WTx",
+     "@Common.QuickInfo": "Withholding Tax Code"
+    },
+    "FreightSupplier": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier",
+     "@Common.QuickInfo": "Account Number of Supplier"
+    },
+    "CndnRoundingOffDiffAmount": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "TransactionCurrency"
+     },
+     "@Common.Label": "Cond.Rounding Diff.",
+     "@Common.Heading": "CondDiff",
+     "@Common.QuickInfo": "Rounding-Off Difference of the Condition"
+    },
+    "ConditionAmount": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Measures.ISOCurrency": {
+      "=": "TransactionCurrency"
+     },
+     "@Common.Label": "Condition Value"
+    },
+    "TransactionCurrency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Document Currency",
+     "@Common.Heading": "Crcy",
+     "@Common.QuickInfo": "SD Document Currency"
+    },
+    "ConditionControl": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Condition Control",
+     "@Common.Heading": "Ctrl"
+    },
+    "ConditionInactiveReason": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Inactive Condition",
+     "@Common.Heading": "Inact",
+     "@Common.QuickInfo": "Condition is Inactive"
+    },
+    "ConditionClass": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Condition Class",
+     "@Common.Heading": "CCl"
+    },
+    "PrcgProcedureCounterForHeader": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Counter",
+     "@Common.Heading": "Cntr",
+     "@Common.QuickInfo": "Condition Counter (Header)"
+    },
+    "FactorForConditionBasisValue": {
+     "type": "cds.Double",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Condition Factor",
+     "@Common.Heading": "Factor",
+     "@Common.QuickInfo": "Factor for Condition Base Value"
+    },
+    "StructureCondition": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Structure Condition",
+     "@Common.Heading": "StrucC"
+    },
+    "PeriodFactorForCndnBasisValue": {
+     "type": "cds.Double",
+     "notNull": true,
+     "@Common.Label": "Condition Factor",
+     "@Common.Heading": "Factor",
+     "@Common.QuickInfo": "Factor for Condition Basis (Period)"
+    },
+    "PricingScaleBasis": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Scale Basis",
+     "@Common.Heading": "ScBas",
+     "@Common.QuickInfo": "Scale Basis Indicator"
+    },
+    "ConditionScaleBasisValue": {
+     "type": "cds.Decimal",
+     "precision": 24,
+     "scale": 9,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Scale Base Val.",
+     "@Common.Heading": "Scale Base Value",
+     "@Common.QuickInfo": "Scale Base Value"
+    },
+    "ConditionScaleBasisUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Scale Unit of Meas.",
+     "@Common.Heading": "UoM",
+     "@Common.QuickInfo": "Condition Scale Unit of Measure"
+    },
+    "ConditionScaleBasisCurrency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Scale Currency",
+     "@Common.Heading": "ScCur"
+    },
+    "ConditionAlternativeCurrency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Condition Currency",
+     "@Common.Heading": "CnC",
+     "@Common.QuickInfo": "Condition Currency (for Cumulation Fields)"
+    },
+    "ConditionAmountInLocalCrcy": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "ConditionAlternativeCurrency"
+     },
+     "@Common.Label": "Condition Value"
+    },
+    "CndnIsRelevantForIntcoBilling": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Intercomp.Billing",
+     "@Common.Heading": "ICB",
+     "@Common.QuickInfo": "Condition for Intercompany Billing"
+    },
+    "ConditionIsManuallyChanged": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Changed Manually",
+     "@Common.Heading": "Man",
+     "@Common.QuickInfo": "Condition Changed Manually"
+    },
+    "BillingPriceSource": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Price Source",
+     "@Common.Heading": "PrSc"
+    },
+    "TaxJurisdictionLevel": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Jurisdiction level",
+     "@Common.QuickInfo": "Tax jurisdiction code level"
+    },
+    "ConditionByteSequence": {
+     "type": "cds.Binary",
+     "length": 2,
+     "notNull": true,
+     "@Common.Label": "BitEncryptFlags",
+     "@Common.Heading": "BFlg",
+     "@Common.QuickInfo": "Bit encrypted flags in Pricing"
+    },
+    "CndnIsRelevantForLimitValue": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Condition Update",
+     "@Common.Heading": "CdUpd"
+    },
+    "ConditionBasisLimitExceeded": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Maximum Basis Value",
+     "@Common.Heading": "MxBV",
+     "@Common.QuickInfo": "Indicator for Maximum Condition Basis Value"
+    },
+    "ConditionAmountLimitExceeded": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Maximum Amount",
+     "@Common.Heading": "MxAm",
+     "@Common.QuickInfo": "Indicator for Maximum Condition Amount"
+    },
+    "CumulatedConditionBasisValue": {
+     "type": "cds.Decimal",
+     "precision": 24,
+     "scale": 9,
+     "notNull": true,
+     "@Common.Label": "Condition Basis"
+    },
+    "CustomerRebateRecipient": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Customer",
+     "@Common.QuickInfo": "Customer number (rebate recipient)"
+    },
+    "ConditionIsForConfiguration": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "UsedforVariantConfig",
+     "@Common.Heading": "Var.",
+     "@Common.QuickInfo": "Condition Used for Variant Configuration"
+    },
+    "VariantCondition": {
+     "type": "cds.String",
+     "length": 26,
+     "notNull": true,
+     "@Common.Label": "Variant Key",
+     "@Common.Heading": "Variant",
+     "@Common.QuickInfo": "Variant Condition Key"
+    },
+    "ConditionAcctAssgmtRelevance": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Rel. for Acct Assigt",
+     "@Common.Heading": "AcRel",
+     "@Common.QuickInfo": "Relevance for Account Assignment"
+    },
+    "ConditionMatrixMaintRelevance": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Matrix Maintenance",
+     "@Common.Heading": "MM",
+     "@Common.QuickInfo": "Indicator: Matrix Maintenance"
+    },
+    "ConfigblParametersAndFormulas": {
+     "type": "cds.UUID",
+     "@Common.Label": "Form. ID in Document",
+     "@Common.Heading": "Formula. ID in Document",
+     "@Common.QuickInfo": "Identifier of CPF Formula in Document"
+    },
+    "ConditionAdjustedQuantity": {
+     "type": "cds.Decimal",
+     "precision": 31,
+     "scale": 14,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "ConditionQuantityUnit"
+     },
+     "@Common.Label": "Adjusted Qty.",
+     "@Common.Heading": "Adj. Qty.",
+     "@Common.QuickInfo": "Adjusted Quantity"
+    },
+    "ConditionTypeName": {
+     "type": "cds.String",
+     "length": 30,
+     "notNull": true,
+     "@Common.Label": "Description"
+    },
+    "ConditionBaseValueIntlUnit": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.Label": "Condition Unit",
+     "@Common.Heading": "Unit",
+     "@Common.QuickInfo": "Condition Unit (Currency, Sales Unit, or %)"
+    },
+    "ConditionBaseValueUnit": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.Label": "Condition Unit",
+     "@Common.Heading": "Unit",
+     "@Common.QuickInfo": "Condition Unit (Currency, Sales Unit, or %)"
+    },
+    "ConditionRateValueIntlUnit": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.Label": "Condition Unit",
+     "@Common.Heading": "Unit",
+     "@Common.QuickInfo": "Condition Unit (Currency, Sales Unit, or %)"
+    },
+    "ConditionRateValueUnit": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.Label": "Condition Unit",
+     "@Common.Heading": "Unit",
+     "@Common.QuickInfo": "Condition Unit (Currency, Sales Unit, or %)"
+    },
+    "TaxCodeName": {
+     "type": "cds.String",
+     "length": 50,
+     "notNull": true,
+     "@Common.Label": "Tax Code Description"
+    },
+    "ConditionIsDeletable": {
+     "type": "cds.Boolean",
+     "notNull": true
+    },
+    "PricingProcedure": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Procedure",
+     "@Common.Heading": "Proc.",
+     "@Common.QuickInfo": "Procedure (Pricing, Output Control, Acct. Det., Costing,...)"
+    },
+    "SuperordinateDocument": {
+     "type": "cds.String",
+     "length": 32,
+     "notNull": true
+    },
+    "SuperordinateDocumentItem": {
+     "type": "cds.String",
+     "length": 70,
+     "notNull": true
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEORDER_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseOrder": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrder",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrder",
+        "PurchaseOrder"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrder"
+       ]
+      }
+     ]
+    },
+    "_PurchaseOrderItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEORDER_0001.PurchaseOrderItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseOrderItem",
+        "PurchaseOrderItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseOrderItem"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Pricing Element",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "ConditionRateRatio"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "ConditionQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "CndnRoundingOffDiffAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "ConditionAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "ConditionAmountInLocalCrcy"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "ConditionAdjustedQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  }
+ }
+}

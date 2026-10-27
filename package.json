@@ -1,0 +1,124 @@
+{
+  "name": "SalesService",
+  "version": "1.0.0",
+  "description": "Projeto de serviço de aprovação de pedidos de venda",
+  "type": "module",
+  "license": "UNLICENSED",
+  "private": "true",
+  "dependencies": {
+    "@cap-js/hana": "3.1.0",
+    "@sap/cds": "10.1.0",
+    "@sap/xsenv": "6.2.2",
+    "typescript": "^7.0.2",
+    "@sap-cloud-sdk/connectivity": "^4",
+    "@sap-cloud-sdk/http-client": "^4",
+    "@sap-cloud-sdk/resilience": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/cds-test": "1.0.2",
+    "@cap-js/cds-types": "^0.20.0",
+    "@cap-js/sqlite": "3.1.0",
+    "@sap/cds-dk": "^10.0.6",
+    "cds-plugin-ui5": "^0.13.0",
+    "jest": "30.5.1",
+    "supertest": "^7.2.2",
+    "@types/node": "^24.0.0",
+    "tsx": "^4",
+    "typescript": "^7.0.0",
+    "@cap-js/cds-typer": ">=0.1"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --detectOpenHandles",
+    "buid": "rimraf resources mta_archives && mbt build --mtar archive",
+    "watch-salesordersmodule": "cds watch --open sap.salesorders.salesordersmodule/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "[development]": {
+          "kind": "sqlite",
+          "credentials": {
+            "url": "db.sqlite"
+          }
+        },
+        "[production]": {
+          "kind": "hana"
+        }
+      },
+      "auth": {
+        "[development]": {
+          "kind": "mocked",
+          "users": {
+            "requester": {
+              "password": "requester-pass"
+            },
+            "manager.ops": {
+              "password": "manager-pass",
+              "roles": [
+                "ProcurementApprover"
+              ]
+            },
+            "finance": {
+              "password": "finance-pass",
+              "roles": [
+                "ProcurementApprover"
+              ]
+            },
+            "director": {
+              "password": "director-pass",
+              "roles": [
+                "ProcurementApprover"
+              ]
+            }
+          }
+        },
+        "[production]": {
+          "kind": "xsuaa"
+        }
+      },
+      "OP_API_COSTCENTER_SRV_0001": {
+        "kind": "odata-v2",
+        "model": "srv/external/OP_API_COSTCENTER_SRV_0001",
+         "credentials": {
+            "destination": "S4HANA_ONPREM",
+            "path": "/sap/opu/odata/sap/API_COSTCENTER_SRV"
+          }
+      },
+      "OP_API_BUSINESS_PARTNER_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/OP_API_BUSINESS_PARTNER_SRV",
+        "credentials": {
+          "destination": "S4HANA_ONPREM",
+          "path": "/sap/opu/odata/sap/API_BUSINESS_PARTNER"
+        }
+      },
+      "OP_API_PRODUCT_SRV_0001": {
+        "kind": "odata-v2",
+        "model": "srv/external/OP_API_PRODUCT_SRV_0001",
+          "credentials": {
+            "destination": "S4HANA_ONPREM",
+            "path": "/sap/opu/odata/sap/API_PRODUCT_SRV"
+          }
+      },
+      "OP_PURCHASEREQUISITION_0001": {
+        "kind": "odata",
+        "model": "srv/external/OP_PURCHASEREQUISITION_0001"
+      },
+      "OP_PURCHASEORDER_0001": {
+        "kind": "odata",
+        "model": "srv/external/OP_PURCHASEORDER_0001"
+      }
+    }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/salesordersmodule"
+  ],
+  "imports": {
+    "#cds-models/*": "./@cds-models/*/index.js"
+  }
+}

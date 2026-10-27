@@ -1,0 +1,2230 @@
+{
+ "meta": {
+  "creator": "cds-dk 9.7.1"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "OP_PURCHASEREQUISITION_0001.SAP__Message": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "code": {
+     "type": "cds.String",
+     "notNull": true
+    },
+    "message": {
+     "type": "cds.String",
+     "notNull": true
+    },
+    "target": {
+     "type": "cds.String"
+    },
+    "additionalTargets": {
+     "items": {
+      "type": "cds.String",
+      "notNull": true
+     }
+    },
+    "transition": {
+     "type": "cds.Boolean",
+     "notNull": true
+    },
+    "numericSeverity": {
+     "type": "cds.Integer",
+     "@odata.Type": "Edm.Byte",
+     "notNull": true
+    },
+    "longtextUrl": {
+     "type": "cds.String"
+    }
+   }
+  },
+  "OP_PURCHASEREQUISITION_0001": {
+   "kind": "service",
+   "@cds.external": true,
+   "@CodeList.CurrencyCodes.Url": "../../../../default/iwbep/common/0001/$metadata",
+   "@CodeList.CurrencyCodes.CollectionPath": "Currencies",
+   "@CodeList.UnitsOfMeasure.Url": "../../../../default/iwbep/common/0001/$metadata",
+   "@CodeList.UnitsOfMeasure.CollectionPath": "UnitsOfMeasure",
+   "@Aggregation.ApplySupported.Transformations": [
+    "aggregate",
+    "groupby",
+    "filter"
+   ],
+   "@Aggregation.ApplySupported.Rollup": {
+    "#": "None"
+   },
+   "@Common.ApplyMultiUnitBehaviorForSortingAndFiltering": true,
+   "@Capabilities.FilterFunctions": [
+    "eq",
+    "ne",
+    "gt",
+    "ge",
+    "lt",
+    "le",
+    "and",
+    "or",
+    "contains",
+    "startswith",
+    "endswith",
+    "any",
+    "all"
+   ],
+   "@Capabilities.SupportedFormats": [
+    "application/json",
+    "application/pdf"
+   ],
+   "@PDF.Features.DocumentDescriptionReference": "../../../../default/iwbep/common/0001/$metadata",
+   "@PDF.Features.DocumentDescriptionCollection": "MyDocumentDescriptions",
+   "@PDF.Features.ArchiveFormat": true,
+   "@PDF.Features.Border": true,
+   "@PDF.Features.CoverPage": true,
+   "@PDF.Features.FitToPage": true,
+   "@PDF.Features.FontName": true,
+   "@PDF.Features.FontSize": true,
+   "@PDF.Features.Margin": true,
+   "@PDF.Features.Padding": true,
+   "@PDF.Features.Signature": true,
+   "@PDF.Features.HeaderFooter": true,
+   "@PDF.Features.ResultSizeDefault": 20000,
+   "@PDF.Features.ResultSizeMaximum": 20000,
+   "@Capabilities.KeyAsSegmentSupported": true,
+   "@Capabilities.AsynchronousRequestsSupported": true
+  },
+  "OP_PURCHASEREQUISITION_0001.PurchaseReqn": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseRequisition": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Requisition",
+     "@Common.Heading": "Purch.Reqn",
+     "@Common.QuickInfo": "Purchase Requisition Number"
+    },
+    "PurchaseRequisitionType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "PurchaseRequisitionType",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Document Type",
+     "@Common.QuickInfo": "Purchase Requisition Document Type"
+    },
+    "PurReqnDescription": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "PurReqn Description",
+     "@Common.Heading": "Purchase Requisition Description",
+     "@Common.QuickInfo": "Purchase Requisition Description"
+    },
+    "PurReqnHeaderNote": {
+     "type": "cds.String",
+     "notNull": true,
+     "@Common.Label": "Long Text"
+    },
+    "SourceDetermination": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Checkbox"
+    },
+    "PurReqnDoOnlyValidation": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Boolean Variable (X = True, - = False, Space = Unknown)"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEREQUISITION_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseRequisitionItem": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqnItem",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseRequisitionItem",
+        "_PurReqn"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    }
+   },
+   "actions": {
+    "Validate": {
+     "kind": "action",
+     "params": {}
+    },
+    "EnablePurReqForPurchasing": {
+     "kind": "action",
+     "params": {}
+    },
+    "DiscardPurReqFromPurchasing": {
+     "kind": "action",
+     "params": {}
+    }
+   },
+   "@Common.Label": "Purchase Requisition",
+   "@Common.SemanticKey": [
+    "PurchaseRequisition"
+   ],
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "_PurchaseRequisitionItem"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.FilterRestrictions.Filterable": true,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "PurReqnHeaderNote"
+     },
+     "AllowedExpressions": "SearchExpression"
+    }
+   ],
+   "@Capabilities.FilterRestrictions.NonFilterableProperties": [
+    "PurReqnHeaderNote"
+   ],
+   "@Capabilities.SortRestrictions.NonSortableProperties": [
+    "PurReqnHeaderNote"
+   ],
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEREQUISITION_0001.PurchaseReqnAcctAssgmt": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseRequisition": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Requisition",
+     "@Common.Heading": "Purch.Req.",
+     "@Common.QuickInfo": "Purchase Requisition Number"
+    },
+    "PurchaseRequisitionItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item of requisition",
+     "@Common.Heading": "Item",
+     "@Common.QuickInfo": "Item Number of Purchase Requisition"
+    },
+    "PurchaseReqnAcctAssgmtNumber": {
+     "key": true,
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Serial no.acct.assgt",
+     "@Common.Heading": "Ser",
+     "@Common.QuickInfo": "Serial number for PReq account assignment segment"
+    },
+    "CostCenter": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Cost Center",
+     "@Common.Heading": "Cost Ctr"
+    },
+    "MasterFixedAsset": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Asset",
+     "@Common.QuickInfo": "Main Asset Number"
+    },
+    "ProjectNetwork": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Network",
+     "@Common.QuickInfo": "Network Number for Account Assignment"
+    },
+    "BaseUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Unit of Measure",
+     "@Common.Heading": "Un",
+     "@Common.QuickInfo": "Purchase requisition unit of measure"
+    },
+    "BaseUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "ISO Code",
+     "@Common.Heading": "ISO",
+     "@Common.QuickInfo": "ISO Code for Unit of Measurement"
+    },
+    "Quantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "BaseUnit"
+     },
+     "@Measures.UNECEUnit": {
+      "=": "BaseUnitISOCode"
+     },
+     "@Common.Label": "Quantity requested",
+     "@Common.Heading": "Qty requested",
+     "@Common.QuickInfo": "Purchase requisition quantity"
+    },
+    "MultipleAcctAssgmtDistrPercent": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 1,
+     "notNull": true,
+     "@Common.Label": "Distribution (%)",
+     "@Common.Heading": "Percent",
+     "@Common.QuickInfo": "Distribution percentage in the case of multiple acct assgt"
+    },
+    "PurReqnItemCurrency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Currency",
+     "@Common.Heading": "Crcy",
+     "@Common.QuickInfo": "Currency Key"
+    },
+    "PurReqnNetAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "PurReqnItemCurrency"
+     },
+     "@Common.Label": "Net Order Value",
+     "@Common.Heading": "Net Value",
+     "@Common.QuickInfo": "Net Order Value in PO Currency"
+    },
+    "IsDeleted": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Deletion Indicator",
+     "@Common.Heading": "D",
+     "@Common.QuickInfo": "Deletion Indicator in Purchasing Document"
+    },
+    "GLAccount": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "G/L Account",
+     "@Common.Heading": "G/L Acct",
+     "@Common.QuickInfo": "G/L Account Number"
+    },
+    "BusinessArea": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Business Area",
+     "@Common.Heading": "BusA"
+    },
+    "SalesOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "SD Document",
+     "@Common.Heading": "Document",
+     "@Common.QuickInfo": "Sales and Distribution Document Number"
+    },
+    "SalesOrderItem": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Sales Document Item",
+     "@Common.Heading": "Item"
+    },
+    "SalesOrderScheduleLine": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Schedule Line Number",
+     "@Common.Heading": "SLNo"
+    },
+    "FixedAsset": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Asset Subnumber",
+     "@Common.Heading": "SNo."
+    },
+    "OrderID": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Order",
+     "@Common.QuickInfo": "Order Number"
+    },
+    "UnloadingPointName": {
+     "type": "cds.String",
+     "length": 25,
+     "notNull": true,
+     "@Common.Label": "Unloading Point"
+    },
+    "ControllingArea": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Controlling Area",
+     "@Common.Heading": "COAr"
+    },
+    "CostObject": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Cost Object",
+     "@Common.Heading": "CostObject"
+    },
+    "ProfitCenter": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Profit Center",
+     "@Common.Heading": "Profit Ctr"
+    },
+    "ProjectNetworkInternalID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Opertn Task List No.",
+     "@Common.Heading": "Routing Number for Operations",
+     "@Common.QuickInfo": "Routing Number of Operations in the Order"
+    },
+    "CommitmentItem": {
+     "type": "cds.String",
+     "length": 24,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Commitment Item"
+    },
+    "FundsCenter": {
+     "type": "cds.String",
+     "length": 16,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Funds Center",
+     "@Common.Heading": "Funds Ctr"
+    },
+    "Fund": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Fund"
+    },
+    "FunctionalArea": {
+     "type": "cds.String",
+     "length": 16,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Functional Area"
+    },
+    "CreationDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Created On",
+     "@Common.QuickInfo": "Record Creation Date"
+    },
+    "GoodsRecipientName": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.Label": "Goods Recipient",
+     "@Common.Heading": "Recipient"
+    },
+    "REInternalFinNumber": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Real Estate Key",
+     "@Common.QuickInfo": "Internal Key of Real Estate Object (FI)"
+    },
+    "NetworkActivityInternalID": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Counter",
+     "@Common.QuickInfo": "Internal counter"
+    },
+    "PartnerAccountNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Partner",
+     "@Common.QuickInfo": "Partner account number"
+    },
+    "JointVentureRecoveryCode": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Recovery Indicator",
+     "@Common.Heading": "RI"
+    },
+    "SettlementReferenceDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Reference date",
+     "@Common.Heading": "Ref date",
+     "@Common.QuickInfo": "Reference date for settlement"
+    },
+    "OrderInternalID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Opertn Task List No.",
+     "@Common.Heading": "Routing Number for Operations",
+     "@Common.QuickInfo": "Routing Number of Operations in the Order"
+    },
+    "OrderIntBillOfOperationsItem": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Counter",
+     "@Common.QuickInfo": "General counter for order"
+    },
+    "EarmarkedFundsDocument": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Earmarked Funds",
+     "@Common.Heading": "Earm. Fnds",
+     "@Common.QuickInfo": "Document Number for Earmarked Funds"
+    },
+    "CostCtrActivityType": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Activity Type",
+     "@Common.Heading": "ActTyp"
+    },
+    "BusinessProcess": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Business Process",
+     "@Common.Heading": "Bus. Process"
+    },
+    "GrantID": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Grant"
+    },
+    "ValidityDate": {
+     "type": "cds.Date"
+    },
+    "ChartOfAccounts": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Chart of Accounts"
+    },
+    "WBSElementExternalID": {
+     "type": "cds.String",
+     "length": 24,
+     "notNull": true
+    },
+    "NetworkActivity": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Oper./Act.",
+     "@Common.Heading": "Operation/Activity Number",
+     "@Common.QuickInfo": "Operation/Activity Number"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEREQUISITION_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseRequisitionItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqnItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseRequisitionItem",
+        "PurchaseRequisitionItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseRequisitionItem"
+       ]
+      }
+     ]
+    },
+    "_PurReqn": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqn",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurReqn",
+        "PurchaseRequisition"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseRequisition"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Account Assignment",
+   "@Common.SemanticKey": [
+    "PurchaseReqnAcctAssgmtNumber",
+    "PurchaseRequisitionItem",
+    "PurchaseRequisition"
+   ],
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.FilterRestrictions.NonFilterableProperties": [
+    "NetworkActivity"
+   ],
+   "@Capabilities.SortRestrictions.NonSortableProperties": [
+    "NetworkActivity"
+   ],
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEREQUISITION_0001.PurchaseReqnDelivAddress": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseRequisition": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Requisition",
+     "@Common.Heading": "Purch.Reqn",
+     "@Common.QuickInfo": "Purchase Requisition Number"
+    },
+    "PurchaseRequisitionItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Requisn. item",
+     "@Common.Heading": "Item",
+     "@Common.QuickInfo": "Item number of purchase requisition"
+    },
+    "AddressID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Plant",
+     "@Common.Heading": "Plnt"
+    },
+    "PurchasingDeliveryAddressType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address Type",
+     "@Common.Heading": "Delivery Address Type",
+     "@Common.QuickInfo": "Purchase Requisition Address Type"
+    },
+    "ManualDeliveryAddressID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address",
+     "@Common.QuickInfo": "Manual address number in purchasing document item"
+    },
+    "ItemDeliveryAddressID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address",
+     "@Common.QuickInfo": "Number of delivery address"
+    },
+    "CareOfName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "c/o",
+     "@Common.Heading": "c/o name",
+     "@Common.QuickInfo": "c/o name"
+    },
+    "AdditionalStreetSuffixName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 5"
+    },
+    "CorrespondenceLanguage": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.Label": "Language Key",
+     "@Common.Heading": "Language"
+    },
+    "PrfrdCommMediumType": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Comm. Method",
+     "@Common.QuickInfo": "Communication Method (Key) (Business Address Services)"
+    },
+    "POBox": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box"
+    },
+    "POBoxIsWithoutNumber": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "PO Box w/o No.",
+     "@Common.Heading": "PO",
+     "@Common.QuickInfo": "Flag: PO Box Without Number"
+    },
+    "POBoxPostalCode": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box Postal Code",
+     "@Common.Heading": "Postl Code"
+    },
+    "POBoxLobbyName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "PO Box Lobby"
+    },
+    "POBoxDeviatingCityName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "PO Box City",
+     "@Common.QuickInfo": "PO Box city"
+    },
+    "POBoxDeviatingRegion": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box Region",
+     "@Common.Heading": "PO Region",
+     "@Common.QuickInfo": "Region for PO Box (Country/Region, State, Province, ...)"
+    },
+    "POBoxDeviatingCountry": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PO Box Ctry/Region",
+     "@Common.Heading": "PO C/R",
+     "@Common.QuickInfo": "PO Box of Country/Region"
+    },
+    "DeliveryServiceTypeCode": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Delvry Serv Type",
+     "@Common.QuickInfo": "Type of Delivery Service"
+    },
+    "DeliveryServiceNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Delivery Service No.",
+     "@Common.Heading": "Delivery Service Number",
+     "@Common.QuickInfo": "Number of Delivery Service"
+    },
+    "AddressTimeZone": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Time Zone",
+     "@Common.Heading": "Zone",
+     "@Common.QuickInfo": "Address Time Zone"
+    },
+    "FullName": {
+     "type": "cds.String",
+     "length": 80,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Full Name",
+     "@Common.QuickInfo": "Full name of a party (Bus. Partner, Org. Unit, Doc. address)"
+    },
+    "CityName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "City"
+    },
+    "District": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "District"
+    },
+    "CityCode": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "City Code",
+     "@Common.QuickInfo": "City code for city/street file"
+    },
+    "HomeCityName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Different City",
+     "@Common.Heading": "City (Diff. from Postal City)",
+     "@Common.QuickInfo": "City (different from postal city)"
+    },
+    "PostalCode": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Postal Code",
+     "@Common.Heading": "Postl Code",
+     "@Common.QuickInfo": "City postal code"
+    },
+    "CompanyPostalCode": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Company Postal Code",
+     "@Common.Heading": "Postl Code",
+     "@Common.QuickInfo": "Company Postal Code (for Large Customers)"
+    },
+    "StreetName": {
+     "type": "cds.String",
+     "length": 60,
+     "notNull": true,
+     "@Common.Label": "Street"
+    },
+    "StreetPrefixName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 2"
+    },
+    "AdditionalStreetPrefixName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 3"
+    },
+    "StreetSuffixName": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Street 4"
+    },
+    "HouseNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "House Number",
+     "@Common.Heading": "House No."
+    },
+    "HouseNumberSupplementText": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Supplement",
+     "@Common.QuickInfo": "House number supplement"
+    },
+    "Building": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.Label": "Building Code",
+     "@Common.Heading": "Building",
+     "@Common.QuickInfo": "Building (Number or Code)"
+    },
+    "Floor": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Floor",
+     "@Common.QuickInfo": "Floor in building"
+    },
+    "RoomNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Room Number",
+     "@Common.Heading": "Room No.",
+     "@Common.QuickInfo": "Room or Apartment Number"
+    },
+    "Country": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "Country",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Country/Region Key",
+     "@Common.Heading": "C/R"
+    },
+    "Region": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "Region",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Region",
+     "@Common.Heading": "Rg",
+     "@Common.QuickInfo": "Region (State, Province, County)"
+    },
+    "County": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "County"
+    },
+    "FormOfAddress": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Title Key",
+     "@Common.Heading": "Key",
+     "@Common.QuickInfo": "Form-of-Address Key"
+    },
+    "BusinessPartnerName1": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name",
+     "@Common.QuickInfo": "Name 1"
+    },
+    "BusinessPartnerName2": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name 2"
+    },
+    "PhoneNumber": {
+     "type": "cds.String",
+     "length": 30,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Telephone",
+     "@Common.QuickInfo": "Telephone No.: Dialing Code and Number"
+    },
+    "FaxNumber": {
+     "type": "cds.String",
+     "length": 30,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Fax",
+     "@Common.QuickInfo": "Fax Number: Dialing Code and Number"
+    },
+    "EmailAddress": {
+     "type": "cds.String",
+     "length": 241,
+     "notNull": true,
+     "@Common.Label": "E-Mail Address"
+    },
+    "SearchTerm1": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Search Term 1"
+    },
+    "BusinessPartnerName3": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name 3"
+    },
+    "BusinessPartnerName4": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Name 4"
+    },
+    "TaxJurisdiction": {
+     "type": "cds.String",
+     "length": 15,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "TaxJurisdiction",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tax Jurisdiction"
+    },
+    "TransportZone": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Transportation Zone",
+     "@Common.Heading": "TranspZone",
+     "@Common.QuickInfo": "Transportation zone to or from which the goods are delivered"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEREQUISITION_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseRequisitionItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqnItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseRequisitionItem",
+        "PurchaseRequisitionItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseRequisitionItem"
+       ]
+      }
+     ]
+    },
+    "_PurReqn": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqn",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurReqn",
+        "PurchaseRequisition"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseRequisition"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Delivery Address",
+   "@Common.SemanticKey": [
+    "PurchaseRequisitionItem",
+    "PurchaseRequisition"
+   ],
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "EmailAddress"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEREQUISITION_0001.PurchaseReqnItem": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseRequisition": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Requisition",
+     "@Common.Heading": "Purch.Reqn",
+     "@Common.QuickInfo": "Purchase Requisition Number"
+    },
+    "PurchaseRequisitionItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Requisn. item",
+     "@Common.Heading": "Item",
+     "@Common.QuickInfo": "Item number of purchase requisition"
+    },
+    "PurchasingDocument": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase order",
+     "@Common.Heading": "PO",
+     "@Common.QuickInfo": "Purchase order number"
+    },
+    "PurchasingDocumentItem": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Purchase Order Item",
+     "@Common.Heading": "Item",
+     "@Common.QuickInfo": "Purchase order item number"
+    },
+    "PurReqnReleaseStatus": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Proc.state",
+     "@Common.Heading": "Purchase requisition processing state",
+     "@Common.QuickInfo": "Requisition Processing State"
+    },
+    "PurchasingDocumentSubtype": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Control indicator",
+     "@Common.Heading": "Ctl",
+     "@Common.QuickInfo": "Control indicator for purchasing document type"
+    },
+    "PurchasingDocumentItemCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "PurchasingDocumentItemCategory",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Item Category",
+     "@Common.Heading": "I",
+     "@Common.QuickInfo": "Item category in purchasing document"
+    },
+    "PurchaseRequisitionItemText": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Short Text"
+    },
+    "AccountAssignmentCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "AccountAssignmentCategory",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Acct Assignment Cat.",
+     "@Common.Heading": "A",
+     "@Common.QuickInfo": "Account Assignment Category"
+    },
+    "Material": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true
+    },
+    "MaterialGroup": {
+     "type": "cds.String",
+     "length": 9,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Material Group",
+     "@Common.Heading": "Matl Group"
+    },
+    "RequestedQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "BaseUnit"
+     },
+     "@Measures.UNECEUnit": {
+      "=": "BaseUnitISOCode"
+     },
+     "@Common.Label": "Quantity requested",
+     "@Common.Heading": "Qty requested",
+     "@Common.QuickInfo": "Purchase requisition quantity"
+    },
+    "BaseUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Unit of Measure",
+     "@Common.Heading": "Un",
+     "@Common.QuickInfo": "Purchase requisition unit of measure"
+    },
+    "BaseUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "ISO Code",
+     "@Common.Heading": "ISO",
+     "@Common.QuickInfo": "ISO Code for Unit of Measurement"
+    },
+    "PurchaseRequisitionPrice": {
+     "type": "cds.Decimal",
+     "precision": 11,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "PurReqnItemCurrency"
+     },
+     "@Common.Label": "Valuation Price",
+     "@Common.Heading": "Valn Price",
+     "@Common.QuickInfo": "Price in Purchase Requisition"
+    },
+    "PurReqnPriceQuantity": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "BaseUnit"
+     },
+     "@Measures.UNECEUnit": {
+      "=": "BaseUnitISOCode"
+     },
+     "@Common.Label": "Price Unit",
+     "@Common.Heading": "Per"
+    },
+    "MaterialGoodsReceiptDuration": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "notNull": true,
+     "@Common.Label": "GR processing time",
+     "@Common.Heading": "GRT",
+     "@Common.QuickInfo": "Goods receipt processing time in days"
+    },
+    "PurchasingOrganization": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "PurchasingOrganization"
+    },
+    "PurchasingGroup": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "PurchasingGroup",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchasing Group",
+     "@Common.Heading": "PGr"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true
+    },
+    "CompanyCode": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true
+    },
+    "SourceOfSupplyIsAssigned": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Assigned",
+     "@Common.Heading": "A",
+     "@Common.QuickInfo": "Assigned Source of Supply"
+    },
+    "SupplyingPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplying Plant",
+     "@Common.Heading": "SPlt",
+     "@Common.QuickInfo": "Supplying (issuing) plant in case of stock transport order"
+    },
+    "OrderedQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "BaseUnit"
+     },
+     "@Measures.UNECEUnit": {
+      "=": "BaseUnitISOCode"
+     },
+     "@Common.Label": "Quantity ordered",
+     "@Common.Heading": "Ordered",
+     "@Common.QuickInfo": "Quantity ordered against this purchase requisition"
+    },
+    "DeliveryDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Delivery Date",
+     "@Common.Heading": "Deliv. Date",
+     "@Common.QuickInfo": "Item Delivery Date"
+    },
+    "ProcessingStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "EntProjectProcessingStatus",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Processing status",
+     "@Common.Heading": "S",
+     "@Common.QuickInfo": "Processing status of purchase requisition"
+    },
+    "ExternalApprovalStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Ext Prcsng. Status",
+     "@Common.Heading": "External Processing Status",
+     "@Common.QuickInfo": "External Processing Status"
+    },
+    "PurchasingInfoRecord": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "Supplier": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "IsDeleted": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Deletion Indicator",
+     "@Common.Heading": "D",
+     "@Common.QuickInfo": "Deletion Indicator in Purchasing Document"
+    },
+    "FixedSupplier": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "RequisitionerName": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.Label": "Requisitioner",
+     "@Common.Heading": "Requisnr.",
+     "@Common.QuickInfo": "Name of requisitioner/requester"
+    },
+    "CreatedByUser": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Created By",
+     "@Common.QuickInfo": "Name of Person Responsible for Creating the Object"
+    },
+    "PurReqCreationDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Requisition date",
+     "@Common.Heading": "Req.date",
+     "@Common.QuickInfo": "Requisition (request) date"
+    },
+    "PurReqnItemCurrency": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Currency",
+     "@Common.Heading": "Crcy",
+     "@Common.QuickInfo": "Currency Key"
+    },
+    "MaterialPlannedDeliveryDurn": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "notNull": true,
+     "@Common.Label": "Planned Deliv. Time",
+     "@Common.Heading": "PDT",
+     "@Common.QuickInfo": "Planned Delivery Time in Days"
+    },
+    "DelivDateCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Deliv. date category",
+     "@Common.Heading": "C",
+     "@Common.QuickInfo": "Category of delivery date"
+    },
+    "MultipleAcctAssgmtDistribution": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Distrib. Indicator",
+     "@Common.Heading": "D",
+     "@Common.QuickInfo": "Distribution Indicator for Multiple Account Assignment"
+    },
+    "StorageLocation": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "StorageLocation",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Storage Location"
+    },
+    "PurReqnSSPRequestor": {
+     "type": "cds.String",
+     "length": 60,
+     "notNull": true,
+     "@Common.Label": "Requestor"
+    },
+    "PurReqnSSPAuthor": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Author",
+     "@Common.QuickInfo": "Author of Requisition"
+    },
+    "PurchaseContract": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "PurReqnSourceOfSupplyType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purch. Doc. Category",
+     "@Common.Heading": "Cat",
+     "@Common.QuickInfo": "Purchasing Document Category"
+    },
+    "PurchaseContractItem": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true
+    },
+    "ConsumptionPosting": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Consumption",
+     "@Common.Heading": "Cns",
+     "@Common.QuickInfo": "Consumption posting"
+    },
+    "PurReqnOrigin": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Creation indicator",
+     "@Common.Heading": "C",
+     "@Common.QuickInfo": "Creation indicator (purchase requisition/schedule lines)"
+    },
+    "PurReqnSSPCatalog": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.Label": "Web Service ID",
+     "@Common.Heading": "Technical Key of a Web Service",
+     "@Common.QuickInfo": "Technical Key of a Web Service (for Example - a Catalog)"
+    },
+    "PurReqnSSPCatalogItem": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Catalog Item",
+     "@Common.QuickInfo": "Catalog Item Id"
+    },
+    "PurReqnSSPCrossCatalogItem": {
+     "type": "cds.Integer",
+     "notNull": true,
+     "@Common.Label": "Catalog Item Key"
+    },
+    "PurReqnItemBlockingStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Blocking Indicator",
+     "@Common.Heading": "Block",
+     "@Common.QuickInfo": "Purchase Requisition Blocked"
+    },
+    "PurReqnItemBlockingReasonText": {
+     "type": "cds.String",
+     "length": 60,
+     "notNull": true,
+     "@Common.Label": "Blocking Text",
+     "@Common.QuickInfo": "Reason for Item Block"
+    },
+    "Language": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.Label": "Language Key",
+     "@Common.Heading": "Language"
+    },
+    "IsClosed": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Closed",
+     "@Common.Heading": "Cl.",
+     "@Common.QuickInfo": "Purchase requisition closed"
+    },
+    "ReleaseIsNotCompleted": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Subject to Release",
+     "@Common.Heading": "R",
+     "@Common.QuickInfo": "Release Not Yet Completely Effected"
+    },
+    "ServicePerformer": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Service Performer",
+     "@Common.Heading": "SrvPrfm"
+    },
+    "ProductTypeCode": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Product Type Group",
+     "@Common.Heading": "Product Type Grp"
+    },
+    "PerformancePeriodStartDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Start Date",
+     "@Common.QuickInfo": "Start Date for Period of Performance"
+    },
+    "PerformancePeriodEndDate": {
+     "type": "cds.Date",
+     "@Common.Label": "End Date",
+     "@Common.QuickInfo": "End Date for Period of Performance"
+    },
+    "PurchaseOrderPriceType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase order price",
+     "@Common.Heading": "P",
+     "@Common.QuickInfo": "Use Requisition Price in Purchase Order"
+    },
+    "SupplierMaterialNumber": {
+     "type": "cds.String",
+     "length": 35,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier Mat. No.",
+     "@Common.Heading": "Supplier Material Number",
+     "@Common.QuickInfo": "Material Number Used by Supplier"
+    },
+    "Batch": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Batch",
+     "@Common.QuickInfo": "Batch Number"
+    },
+    "MaterialRevisionLevel": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Revision Level"
+    },
+    "MinRemainingShelfLife": {
+     "type": "cds.Decimal",
+     "precision": 4,
+     "notNull": true,
+     "@Common.Label": "Min. Rem. Shelf Life",
+     "@Common.Heading": "RShLi",
+     "@Common.QuickInfo": "Minimum Remaining Shelf Life"
+    },
+    "ItemNetAmount": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "PurReqnItemCurrency"
+     }
+    },
+    "TaxCode": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "SalesTaxCode",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tax Code",
+     "@Common.Heading": "Tx",
+     "@Common.QuickInfo": "Tax on sales/purchases code"
+    },
+    "GoodsReceiptIsExpected": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Goods Receipt",
+     "@Common.Heading": "GR",
+     "@Common.QuickInfo": "Goods Receipt Indicator"
+    },
+    "InvoiceIsExpected": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Invoice Receipt",
+     "@Common.Heading": "IR",
+     "@Common.QuickInfo": "Invoice Receipt Indicator"
+    },
+    "GoodsReceiptIsNonValuated": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "GR Non-Valuated",
+     "@Common.Heading": "N",
+     "@Common.QuickInfo": "Goods Receipt, Non-Valuated"
+    },
+    "RequirementTracking": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Req. Tracking Number",
+     "@Common.Heading": "TrackingNo",
+     "@Common.QuickInfo": "Requirement Tracking Number"
+    },
+    "MRPController": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "MRPController",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "MRP Controller",
+     "@Common.Heading": "MRPCn"
+    },
+    "PurchaseRequisitionIsFixed": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "\"Fixed\" indicator",
+     "@Common.Heading": "Fx",
+     "@Common.QuickInfo": "Purchase requisition is fixed"
+    },
+    "LastChangeDateTime": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Core.Computed": true,
+     "@Common.Label": "Time Stamp",
+     "@Common.QuickInfo": "UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)"
+    },
+    "Reservation": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Reservation",
+     "@Common.Heading": "Reserv.no.",
+     "@Common.QuickInfo": "Number of reservation/dependent requirements"
+    },
+    "ItemDeliveryAddressID": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Address",
+     "@Common.QuickInfo": "Number of delivery address"
+    },
+    "PurReqnReceivingCustomer": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Customer"
+    },
+    "Subcontractor": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Supplier",
+     "@Common.QuickInfo": "Supplier to be Supplied/Who is to Receive Delivery"
+    },
+    "ExpectedOverallLimitAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "PurReqnItemCurrency"
+     },
+     "@Common.Label": "Expected Value",
+     "@Common.QuickInfo": "Expected Value of Overall Limit"
+    },
+    "OverallLimitAmount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "PurReqnItemCurrency"
+     },
+     "@Common.Label": "Overall Limit"
+    },
+    "PurContractForOverallLimit": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Contract For Limit",
+     "@Common.QuickInfo": "Purchase Contract for Enhanced Limit"
+    },
+    "PurContractItemForOverallLimit": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "PurCon Itm for Limit",
+     "@Common.Heading": "Purchase Contract Reference Item for Enhanced Limit Itm",
+     "@Common.QuickInfo": "Purchase Contract Reference Item for Enhanced Limit Item"
+    },
+    "PurReqnExternalReference": {
+     "type": "cds.String",
+     "length": 35,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "External Document",
+     "@Common.Heading": "Document Number of External Document",
+     "@Common.QuickInfo": "Document Number of External Document"
+    },
+    "PurReqnItemExternalReference": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "External Item",
+     "@Common.Heading": "Item Number of External Document",
+     "@Common.QuickInfo": "Item Number of External Document"
+    },
+    "PurReqnExternalSystemId": {
+     "type": "cds.String",
+     "length": 60,
+     "notNull": true,
+     "@Common.Label": "External System ID"
+    },
+    "ProcurementHubSourceSystem": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Connected System ID"
+    },
+    "SSPAuthorExternalBPIdnNumber": {
+     "type": "cds.String",
+     "length": 60,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "BP ID of Author"
+    },
+    "SSPReqrUserId": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Requestor UserID",
+     "@Common.Heading": "Requestor User ID",
+     "@Common.QuickInfo": "Requestor User ID"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEREQUISITION_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseReqnAcctAssgmt": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqnAcctAssgmt",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseReqnAcctAssgmt",
+        "_PurchaseRequisitionItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurchaseReqnDelivAddress": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqnDelivAddress",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseReqnDelivAddress",
+        "_PurchaseRequisitionItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurchaseReqnItemText": {
+     "type": "cds.Composition",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqnItemText",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseReqnItemText",
+        "_PurchaseRequisitionItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    },
+    "_PurReqn": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqn",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurReqn",
+        "PurchaseRequisition"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseRequisition"
+       ]
+      }
+     ]
+    }
+   },
+   "actions": {
+    "DiscardPurReqItemFromPurg": {
+     "kind": "action",
+     "params": {}
+    },
+    "EnablePurReqItemForPurchasing": {
+     "kind": "action",
+     "params": {}
+    }
+   },
+   "@Common.Label": "Item",
+   "@Common.SemanticKey": [
+    "PurchaseRequisitionItem",
+    "PurchaseRequisition"
+   ],
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "_PurchaseReqnAcctAssgmt"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_PurchaseReqnDelivAddress"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_PurchaseReqnItemText"
+     },
+     "InsertRestrictions": {
+      "Insertable": true
+     },
+     "FilterRestrictions": {
+      "Filterable": false
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Core.OptimisticConcurrency": [
+    "LastChangeDateTime"
+   ],
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "RequestedQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "BaseUnit"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "BaseUnitISOCode"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "PurchaseRequisitionPrice"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "PurReqnPriceQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "OrderedQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "ItemNetAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "ExpectedOverallLimitAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    },
+    {
+     "Property": {
+      "=": "OverallLimitAmount"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "OP_PURCHASEREQUISITION_0001.PurchaseReqnItemText": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PurchaseRequisition": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Purchase Requisition",
+     "@Common.Heading": "Purch.Req.",
+     "@Common.QuickInfo": "Purchase Requisition Number"
+    },
+    "PurchaseRequisitionItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item of requisition",
+     "@Common.Heading": "Item",
+     "@Common.QuickInfo": "Item Number of Purchase Requisition"
+    },
+    "TextObjectCategory": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Text object",
+     "@Common.Heading": "Object",
+     "@Common.QuickInfo": "Texts: Application Object"
+    },
+    "TextObjectKey": {
+     "key": true,
+     "type": "cds.String",
+     "length": 70,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Text Name",
+     "@Common.Heading": "Text",
+     "@Common.QuickInfo": "Name"
+    },
+    "TextObjectType": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Text ID",
+     "@Common.Heading": "ID"
+    },
+    "Language": {
+     "key": true,
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Core.Immutable": true,
+     "@Common.Label": "Language Key",
+     "@Common.Heading": "Language"
+    },
+    "PlainLongText": {
+     "type": "cds.String",
+     "notNull": true,
+     "@Common.Label": "Long Text"
+    },
+    "FixedIndicator": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Fixing",
+     "@Common.Heading": "Fix",
+     "@Common.QuickInfo": "\"Fixed\" Indicator for Texts"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "OP_PURCHASEREQUISITION_0001.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_PurchaseRequisitionItem": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqnItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurchaseRequisitionItem",
+        "PurchaseRequisitionItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseRequisitionItem"
+       ]
+      }
+     ]
+    },
+    "_PurReqn": {
+     "type": "cds.Association",
+     "target": "OP_PURCHASEREQUISITION_0001.PurchaseReqn",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_PurReqn",
+        "PurchaseRequisition"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PurchaseRequisition"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Item Notes",
+   "@Common.SemanticKey": [
+    "Language",
+    "TextObjectType",
+    "TextObjectKey",
+    "TextObjectCategory",
+    "PurchaseRequisitionItem",
+    "PurchaseRequisition"
+   ],
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "_PurchaseRequisitionItem"
+     },
+     "SortRestrictions": {
+      "Sortable": false
+     },
+     "FilterRestrictions": {
+      "Filterable": false
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_PurReqn"
+     },
+     "SortRestrictions": {
+      "Sortable": false
+     },
+     "FilterRestrictions": {
+      "Filterable": false
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.FilterRestrictions.Filterable": true,
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "PlainLongText"
+     },
+     "AllowedExpressions": "SearchExpression"
+    }
+   ],
+   "@Capabilities.SortRestrictions.NonSortableProperties": [
+    "PlainLongText"
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  }
+ }
+}
