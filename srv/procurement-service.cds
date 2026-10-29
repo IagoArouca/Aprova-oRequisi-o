@@ -5,6 +5,8 @@ using { OP_API_COSTCENTER_SRV_0001 as S4CostCenter }
   from './external/OP_API_COSTCENTER_SRV_0001';
 using { OP_API_PRODUCT_SRV_0001 as S4Product }
   from './external/OP_API_PRODUCT_SRV_0001';
+using { OP_API_INFORECORD_PROCESS_SRV_0001 as S4InfoRecord }
+  from './external/OP_API_INFORECORD_PROCESS_SRV_0001';
 
 @path: '/procurement'
 @requires: 'authenticated-user'
@@ -79,6 +81,24 @@ service ProcurementService {
     Language,
     ProductDescription
   }; 
+
+    @readonly
+  entity S4PurchasingInfoRecords
+    as projection on S4InfoRecord.A_PurgInfoRecdOrgPlantData {
+      PurchasingInfoRecord,
+      PurchasingInfoRecordCategory,
+      PurchasingOrganization,
+      Plant,
+      Supplier,
+      Material,
+      Currency,
+      PurgDocOrderQuantityUnit,
+      NetPriceAmount,
+      MaterialPriceUnitQty,
+      PurchaseOrderPriceUnit,
+      PriceValidityEndDate,
+      IsMarkedForDeletion
+    };
 
   @readonly
   entity ApprovalPolicy as projection on db.ApprovalPolicy;

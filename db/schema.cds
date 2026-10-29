@@ -86,6 +86,19 @@ entity ApprovalSteps : cuid, managed {
     decisionComment   : LargeString;
 }
 
+entity ProcurementConfiguration : cuid, managed {
+  controllingArea          : String(4) @mandatory;
+  costCenterCode           : String(10) @mandatory;
+  companyCode              : String(4) @mandatory;
+  purchasingOrganization   : String(4) @mandatory;
+  purchasingGroup          : String(3) @mandatory;
+  plant                    : String(4) @mandatory;
+  purchaseOrderType        : String(4) @mandatory;
+  accountAssignmentCategory: String(1) default 'K';
+  glAccount                : String(10);
+  active                   : Boolean default true;
+}
+
 entity RequestEvents : cuid {
   request       : Association to one PurchaseRequests;
   eventType     : String(40) @mandatory;
@@ -97,11 +110,12 @@ entity RequestEvents : cuid {
 }
 
 entity PurchaseOrderSyncs : cuid, managed {
-  request             : Association to one PurchaseRequests;
-  status              : PurchaseOrderSyncStatus default 'Pending';
+  request               : Association to one PurchaseRequests;
+  status                : PurchaseOrderSyncStatus default 'Pending';
   s4PurchaseOrderNumber : String(10);
-  idempotencyKey      : String(80) @mandatory;
-  attemptCount        : Integer default 0;
-  lastAttemptAt       : Timestamp;
-  lastError           : LargeString;
+  idempotencyKey        : String(80) @mandatory;
+  payloadSnapshot       : LargeString @mandatory;
+  attemptCount          : Integer default 0;
+  lastAttemptAt         : Timestamp;
+  lastError             : LargeString;
 }

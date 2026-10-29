@@ -92,6 +92,14 @@
           "path": "/sap/opu/odata/sap/API_COSTCENTER_SRV"
         }
       },
+      "OP_API_INFORECORD_PROCESS_SRV_0001": {
+      "kind": "odata-v2",
+      "model": "srv/external/OP_API_INFORECORD_PROCESS_SRV_0001",
+      "credentials": {
+      "destination": "S4HANA_ONPREM",
+      "path": "/sap/opu/odata/sap/API_INFORECORD_PROCESS_SRV"
+      }
+    },
       "OP_API_BUSINESS_PARTNER_SRV": {
         "kind": "odata-v2",
         "model": "srv/external/OP_API_BUSINESS_PARTNER_SRV",
@@ -106,6 +114,14 @@
         "credentials": {
           "destination": "S4HANA_ONPREM",
           "path": "/sap/opu/odata/sap/API_PRODUCT_SRV"
+        }
+      },
+        "OP_PURCHASEORDER_0001": {
+        "kind": "odata-v2",
+        "model": "srv/external/OP_PURCHASEORDER_0001",
+        "credentials": {
+          "destination": "S4HANA_ONPREM",
+          "path": "/sap/opu/odata4/sap/api_purchaseorder_2/srvd_a2x/sap/purchaseorder/0001"
         }
       }
     }
