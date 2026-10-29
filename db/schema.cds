@@ -33,8 +33,8 @@ entity ApprovalPolicy : cuid, managed {
     minAmount         : Decimal(15,2) @mandatory;
     maxAmount         : Decimal(15,2) @mandatory;
     currency_code     : String(3) @mandatory;
-    approverUserId    : String(255);
-    approverRole      : String(80);
+    approverUserId    : String(255) @mandatory;
+    approverRole      : String(80) @mandatory;
     active            : Boolean default true;
     description       : String(200);
 }
@@ -80,6 +80,7 @@ entity ApprovalSteps : cuid, managed {
     policy            : Association to one ApprovalPolicy;
     stepNumber        : Integer @mandatory;
     approverUserId    : String(255) @mandatory;
+    approverRole    : String(80) @mandatory;
     status            : statusApprovalSteps;
     decidedAt         : Timestamp;
     decisionComment   : LargeString;

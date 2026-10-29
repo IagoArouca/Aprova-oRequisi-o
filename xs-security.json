@@ -1,19 +1,66 @@
 {
-    "xsappname": "coruja-procurement",
-    "tenant-mode": "dedicated",
-    "scopes": [
-        {
-            "name": "$XSAPPNAME.ProcurementApprover",
-            "description": "Can process procurement approvals"
-        }
-    ],
-    "role-templates": [
-        {
-            "name": "ProcurementApprover",
-            "description": "Procurement approver",
-            "scope-references": [
-                "$XSAPPNAME.ProcurementApprover"
-            ]
-        }
-    ]
+  "xsappname": "coruja-procurement",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.ProcurementApprover",
+      "description": "Permite processar etapas de aprovação"
+    },
+    {
+      "name": "$XSAPPNAME.CostCenterManager",
+      "description": "Aprovador responsável pelo centro de custo"
+    },
+    {
+      "name": "$XSAPPNAME.FinanceApprover",
+      "description": "Aprovador financeiro"
+    },
+    {
+      "name": "$XSAPPNAME.ProcurementDirector",
+      "description": "Aprovador executivo de compras"
+    },
+    {
+      "name": "$XSAPPNAME.ProcurementAdministrator",
+      "description": "Administrador das políticas de compras"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "ProcurementApprover",
+      "description": "Aprovador de compras",
+      "scope-references": [
+        "$XSAPPNAME.ProcurementApprover"
+      ]
+    },
+    {
+      "name": "CostCenterManager",
+      "description": "Aprovador do centro de custo",
+      "scope-references": [
+        "$XSAPPNAME.ProcurementApprover",
+        "$XSAPPNAME.CostCenterManager"
+      ]
+    },
+    {
+      "name": "FinanceApprover",
+      "description": "Aprovador financeiro",
+      "scope-references": [
+        "$XSAPPNAME.ProcurementApprover",
+        "$XSAPPNAME.FinanceApprover"
+      ]
+    },
+    {
+      "name": "ProcurementDirector",
+      "description": "Aprovador executivo",
+      "scope-references": [
+        "$XSAPPNAME.ProcurementApprover",
+        "$XSAPPNAME.ProcurementDirector"
+      ]
+    },
+    {
+      "name": "ProcurementAdministrator",
+      "description": "Administrador de políticas",
+      "scope-references": [
+        "$XSAPPNAME.ProcurementAdministrator"
+      ]
+    }
+  ]
 }

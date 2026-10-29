@@ -1,0 +1,128 @@
+_schema-version: "3.3"
+ID: coruja-procurement
+version: 1.0.0
+description: CAP procurement com frontend React
+parameters:
+  enable-parallel-deployments: true
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npm run ui:build
+        - npx cds build --production
+modules:
+  - name: coruja-procurement-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 768M
+      disk-quota: 1G
+    build-parameters:
+      builder: npm
+    provides:
+      - name: procurement-srv-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: coruja-procurement-db
+      - name: coruja-procurement-xsuaa
+      - name: coruja-procurement-destination
+      - name: coruja-procurement-connectivity
+
+  - name: coruja-procurement-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: coruja-procurement-db
+
+  - name: coruja-procurement-ui
+    type: html5
+    path: app/procurement
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      build-result: dist
+      supported-platforms: []
+
+  - name: coruja-procurement-ui-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: coruja-procurement-html5-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - name: coruja-procurement-ui
+          artifacts:
+            - coruja-procurement-ui.zip
+          target-path: resources/
+  
+  - name: coruja-procurement-approuter
+    type: approuter.nodejs
+    path: app/router
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: coruja-procurement-xsuaa
+      - name: coruja-procurement-destination
+      - name: coruja-procurement-html5-runtime
+      - name: procurement-srv-api
+        group: destinations
+        properties:
+          name: procurement-srv
+          url: ~{srv-url}
+          forwardAuthToken: true
+
+resources: 
+  - name: coruja-procurement-db
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+
+  - name: coruja-procurement-xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: coruja-procurement
+        tenant-mode: dedicated
+
+  - name: coruja-procurement-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+
+  - name: coruja-procurement-connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-plan: lite
+
+  - name: coruja-procurement-html5-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+
+
+  - name: coruja-procurement-html5-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime

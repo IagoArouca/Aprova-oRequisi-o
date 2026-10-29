@@ -17,6 +17,7 @@ export default class ProcurementService extends cds.ApplicationService {
     this.on('submitRequest', this.submitRequest);
     this.on('approveRequest', this.approveRequest);
     this.on('rejectRequest', this.rejectRequest);
+    this.on("myApprovals", this.myApprovals);
 
     return super.init();
   }
@@ -63,8 +64,11 @@ export default class ProcurementService extends cds.ApplicationService {
       return req.reject(409, "Only draft requests can be submitted");
     }
 
-    if(!request.costCenter_ID) {
-      return req.reject(400, "A request must be associated with a cost center");
+    if(!request.controllingArea || !request.costCenterCode ) {
+      return req.reject(
+        400,
+        "The request must be associated with a cost center"
+      );
     }
 
 
@@ -78,6 +82,13 @@ export default class ProcurementService extends cds.ApplicationService {
       return req.reject(400, "A request must contain at least one item");
     }
 
+    if(items.some((item) => item.currency_code !== request.currency_code)) {
+      return req.reject(
+        400,
+        "All request items must use the request currency",
+      )
+    }
+
     const totalAmount = items.reduce((sum: number, item: any) => {
       return sum + Number(item.quantity) * Number(item.unitPrice);
     }, 0);
@@ -85,7 +96,9 @@ export default class ProcurementService extends cds.ApplicationService {
     const matchingPolicies = await tx.run(
       SELECT.from(ApprovalPolicyEntity)
         .where({
-          costCenter_ID: request.costCenter_ID,
+          controllingArea: request.controllingArea,
+          costCenterCode: request.costCenterCode,
+          currency_code: request.currency_code,
           active: true,
         })
         .orderBy("stepNumber: asc" )
@@ -105,15 +118,19 @@ export default class ProcurementService extends cds.ApplicationService {
     }
 
     for (const policy of applicablePolicies) {
-      const approverUserId =
-        policy.approverUserId || request.costCenter?.ownerUserId || userId;
+      if(!policy.approverUserId) {
+        return req.reject(
+          500,
+          `Approval policy step ${policy.stepNumber} has no approver`,
+        );
+      }
 
       await tx.run(
         INSERT.into(ApprovalStepsEntity).entries({
           request_ID: requestID,
           policy_ID: policy.ID,
           stepNumber: policy.stepNumber,
-          approverUserId,
+          approverUserId: policy.approverUserId,
           approverRole: policy.approverRole,
           status: "Pending",
         })
@@ -202,9 +219,13 @@ export default class ProcurementService extends cds.ApplicationService {
     }
 
     
-    if (pendingStep.approverUserId !== userId) {
-      return req.reject(403, "You are not the approver for this step");
-    }
+    if (
+      pendingStep.approverUserId !== userId ||
+      !pendingStep.approverRole ||
+      !req.user.is(pendingStep.approverRole)
+    ) {
+        return req.reject(403, "You are not the approver for this step");
+      }
 
     const decidedAt = new Date().toISOString();
 
@@ -334,4 +355,86 @@ export default class ProcurementService extends cds.ApplicationService {
         .where({ ID: requestID })
      );
   }
+
+  private async myApprovals(req: cds.Request) {
+  const userId = req.user?.id;
+
+  if (!userId) {
+    return req.reject(401, "Authentication required");
+  }
+
+  if (!req.user.is("ProcurementApprover")) {
+    return req.reject(403, "Procurement approver role required");
+  }
+
+  const tx = cds.tx(req);
+
+  const assignedSteps = await tx.run(
+    SELECT.from(ApprovalStepsEntity)
+      .columns("request_ID")
+      .where({
+        approverUserId: userId,
+        status: "Pending",
+      }),
+  );
+
+  const candidateRequestIds = [
+    ...new Set(
+      assignedSteps
+        .map((step) => step.request_ID)
+        .filter((requestId): requestId is string => Boolean(requestId)),
+    ),
+  ];
+
+  if (candidateRequestIds.length === 0) {
+    return [];
+  }
+
+  const pendingSteps = await tx.run(
+    SELECT.from(ApprovalStepsEntity)
+      .columns("request_ID", "stepNumber", "approverUserId", "approverRole")
+      .where({
+        request_ID: { in: candidateRequestIds },
+        status: "Pending",
+      })
+      .orderBy("request_ID asc", "stepNumber asc"),
+  );
+
+  const firstPendingStepByRequest = new Map<
+    string,
+    (typeof pendingSteps)[number]
+  >();
+
+  for (const step of pendingSteps) {
+    if (step.request_ID && !firstPendingStepByRequest.has(step.request_ID)) {
+      firstPendingStepByRequest.set(step.request_ID, step);
+    }
+  }
+
+  const authorizedRequestIds = [
+    ...firstPendingStepByRequest.values()
+      .filter(
+        (step) =>
+          step.approverUserId === userId &&
+          Boolean(step.approverRole) &&
+          req.user.is(step.approverRole!),
+      )
+      .map((step) => step.request_ID!)
+  ];
+
+  if (authorizedRequestIds.length === 0) {
+    return [];
+  }
+
+  return tx.run(
+    SELECT.from(PurchaseRequestsEntity)
+      .where({
+        ID: { in: authorizedRequestIds },
+        status: "InApproval",
+      })
+      .orderBy("modifiedAt desc"),
+  );
 }
+}
+
+

@@ -13,7 +13,6 @@ service ProcurementService {
 
     @restrict: [
       { grant: 'READ', to: 'authenticated-user', where: (requesterId = $user) },
-      { grant: 'READ', to: 'ProcurementApprover' },
       { grant: 'CREATE', to: 'authenticated-user' },
       {
             grant: 'UPDATE',
@@ -30,8 +29,10 @@ service ProcurementService {
         requestNumber @Core.Computed,
         requesterId @Core.Computed,
         supplierNumber,
+        supplierNameSnapshot,
         controllingArea,
         costCenterCode,
+        currency_code,
         costCenterNameSnapshot,
         businessJustification,
         status @Core.Computed,
@@ -111,4 +112,7 @@ service ProcurementService {
     requestID: UUID,
     comment: LargeString
   ) returns PurchaseRequests;
+
+  @requires: 'ProcurementApprover'
+  function myApprovals() returns many PurchaseRequests;
 }
